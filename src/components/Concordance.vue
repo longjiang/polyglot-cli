@@ -31,7 +31,7 @@
       </div>
       <div v-if="examples && examples.length === 0">
         Sorry, we could not find any “{{ word.bare }}” examples. You can set a
-        different corpus in <a href="#/settings">Settings</a>.
+        different corpus in <a :href="`#/${$lang.code}/settings`">Settings</a>.
       </div>
       <hr v-if="examples && examples.length === 0" />
       <div class="mt-4">
@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     async update() {
-      let forms = (await (await this.$freedict).wordForms(this.word)).map(
+      let forms = (await (await this.$dictionary).wordForms(this.word)).map(
         form => form.form.replace(/'/g, '')
       )
       this.words = [this.word.bare].concat(forms)

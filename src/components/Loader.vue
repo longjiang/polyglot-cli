@@ -20,7 +20,7 @@ export default {
     }
   },
   async mounted() {
-    await this.$freedict
+    await this.$dictionary
     this.loading = false
   }
 }

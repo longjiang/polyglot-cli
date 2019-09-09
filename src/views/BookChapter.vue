@@ -6,7 +6,7 @@
           placeholder="Enter the URL of a book chapter from a variety of eBook websites"
           :action="
             url => {
-              location.hash = '#/book/chapter/' + encodeURIComponent(url)
+              location.hash = `#/${$lang.code}/book/chapter/${encodeURIComponent(url)}`
             }
           "
           ref="search"

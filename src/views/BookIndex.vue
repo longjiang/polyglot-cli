@@ -6,7 +6,7 @@
           placeholder="Enter the URL of a book from a variety of eBook websites"
           :action="
             url => {
-              location.hash = '#/book/index/' + encodeURIComponent(url)
+              location.hash = `#/${$lang.code}/book/index/${encodeURIComponent(url)}`
             }
           "
           ref="search"
@@ -42,8 +42,9 @@
                 `#/book/chapter/${encodeURIComponent(chapter.url)}`
             }"
             :href="`#/book/chapter/${encodeURIComponent(chapter.url)}`"
-            ><span>{{ chapter.title }}</span></Annotate
           >
+            <span>{{ chapter.title }}</span>
+          </Annotate>
         </div>
       </div>
     </div>
@@ -105,7 +106,7 @@ export default {
                 }
               ]
       } else {
-        location.hash = '#/book/chapter/' + encodeURIComponent(this.args)
+        location.hash = `#/${this.$lang.code}/book/chapter/${encodeURIComponent(this.args)}`
       }
     }
   },

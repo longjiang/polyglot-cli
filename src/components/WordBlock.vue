@@ -146,7 +146,7 @@ export default {
       let forms = [this.text.toLowerCase()]
       if (this.words.length > 0) {
         for (let word of this.words) {
-          let wordForms = (await (await this.$freedict).wordForms(word)) || []
+          let wordForms = (await (await this.$dictionary).wordForms(word)) || []
           wordForms = wordForms
             .map(form => form.form.replace(/'/g, '').toLowerCase())
             .filter(form => form !== '' && form !== '0' && form !== '1')
@@ -168,17 +168,17 @@ export default {
       return false
     },
     async lookup() {
-      let words = await (await this.$freedict).lookupFuzzy(this.text)
+      let words = await (await this.$dictionary).lookupFuzzy(this.text)
       if (words) {
         for (let word of words) {
           if (word && word.matches) {
             for (let match of word.matches) {
-              match.form = await (await this.$freedict).accent(match.form)
-              match.field = await (await this.$freedict).stylize(match.field)
-              match.number = await (await this.$freedict).stylize(
+              match.form = await (await this.$dictionary).accent(match.form)
+              match.field = await (await this.$dictionary).stylize(match.field)
+              match.number = await (await this.$dictionary).stylize(
                 match.number
               )
-              match.table = await (await this.$freedict).stylize(match.table)
+              match.table = await (await this.$dictionary).stylize(match.table)
             }
           }
         }

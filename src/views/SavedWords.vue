@@ -111,7 +111,7 @@ export default {
       this.savedWords = []
       this.savedTexts = []
       for (let wordForms of this.$store.state.savedWords) {
-        let word = await (await this.$freedict).lookup(wordForms[0])
+        let word = await (await this.$dictionary).lookup(wordForms[0])
         if (word) {
           this.savedWords.push(word)
         } else {

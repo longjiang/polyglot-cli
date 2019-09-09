@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="text-center">
-              <h2 class="mb-4">For the love of {{ langName }} words.</h2>
+              <h2 class="mb-4">For the love of {{ $lang.name }} words.</h2>
               <Loader ref="loader" class="mb-5" />
             </div>
             <SearchCompare
@@ -151,7 +151,7 @@ export default {
           if (this.args === 'random') {
             this.random()
           } else {
-            this.entry = await (await this.$freedict).get(this.args)
+            this.entry = await (await this.$dictionary).get(this.args)
           }
         } else {
           if (!this.entry) {
@@ -161,13 +161,12 @@ export default {
       }
     },
     async random() {
-      let randomId = (await (await this.$freedict).random()).id
+      let randomId = (await (await this.$dictionary).random()).id
       location.hash = `#/dictionary/freedict/${randomId}`
     }
   },
   watch: {
     $route() {
-      this.langName = this.$lang.name
       if (this.$route.name === 'dictionary') {
         this.route()
       }

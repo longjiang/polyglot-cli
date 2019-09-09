@@ -77,6 +77,7 @@ export default {
     return {
       Config,
       languages: [],
+      lang: undefined,
       langLoaded: false
     }
   },
@@ -85,8 +86,15 @@ export default {
   },
   watch: {
     $route() {
-      Vue.prototype.$lang = this.languages.find(lang => lang.code === this.$route.params.lang)
-      this.langLoaded = true
+      if (this.lang && this.$route.params.lang !== this.lang) {
+        // switching language
+        location.reload()
+      } else {
+        // first time loading, set the language
+        this.lang = this.$route.params.lang
+        Vue.prototype.$lang = this.languages.find(lang => lang.code === this.$route.params.lang)
+        this.langLoaded = true
+      }
     }
   }
 }

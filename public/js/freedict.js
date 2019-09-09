@@ -10,6 +10,7 @@ const FreeDict = {
       let xhttp = new XMLHttpRequest()
       let that = this
       xhttp.onreadystatechange = function() {
+        
         if (this.readyState == 4 && this.status == 200) {
           that.words = that.parseDictionary(this.responseText)
           resolve()
@@ -21,9 +22,9 @@ const FreeDict = {
     })
   },
   parseDictionary(text) {
-    text = text.replace(/(.|\n)*Polyglot-English FreeDict Dictionary .*\n/m, '')
+    text = text.replace(/(.|\n)*-English FreeDict Dictionary .*\n/m, '')
     let words = []
-    console.log('Parsing "Polyglot-English FreeDict Dictionary"...')
+    console.log('Parsing FreeDict Dictionary...')
     let lines = text.split('\n')
     for (let index in lines) {
       index = parseInt(index)

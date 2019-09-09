@@ -52,7 +52,7 @@
             </li>
             <li>
               Read books from various {{ $lang.name }} sources directly in our
-              <a href="#/library">Library</a>.
+              <a :href="`#/${$lang.code}/library`">Library</a>.
             </li>
           </ul>
         </div>

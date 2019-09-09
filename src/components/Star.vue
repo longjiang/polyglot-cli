@@ -40,7 +40,7 @@ export default {
   methods: {
     async allForms() {
       let wordForms =
-        (await (await this.$freedict).wordForms(this.word)) || []
+        (await (await this.$dictionary).wordForms(this.word)) || []
       wordForms = wordForms.filter(form => form !== '')
       wordForms = Helper.unique(
         [this.word.bare.toLowerCase()].concat(wordForms)

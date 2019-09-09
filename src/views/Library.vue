@@ -45,7 +45,7 @@
             placeholder="Enter the URL of a book from one of the above sites"
             :action="
               url => {
-                location.hash = '#/book/index/' + encodeURIComponent(url)
+                location.hash = `#/${$lang.code}/book/index/${encodeURIComponent(url)}`
               }
             "
             class="mb-3"

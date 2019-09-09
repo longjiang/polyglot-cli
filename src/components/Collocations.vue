@@ -29,7 +29,7 @@
       >
         Sorry, we could not find any “{{ word.bare }}” collocations in this corpus
         (dataset). You can set a different corpus in
-        <a href="#/settings">Settings</a>.
+        <a :href="`#/${$lang.code}/settings`">Settings</a>.
       </div>
       <hr />
       <div class="mt-2">

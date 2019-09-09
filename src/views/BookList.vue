@@ -5,7 +5,7 @@
       placeholder="Enter the URL of a book list from a variety of eBook websites"
       :action="
         url => {
-          location.hash = '#/book/list/' + encodeURIComponent(url)
+          location.hash = `#/${this.$lang.code}/book/list/${encodeURIComponent(url)}`
         }
       "
       ref="search"
@@ -13,10 +13,7 @@
     />
     <ul class="list-unstyled booklist">
       <li v-for="book in booklist" class="booklist-item text-center">
-        <a
-          :href="`#/book/index/${encodeURIComponent(book.url)}`"
-          class="link-unstyled"
-        >
+        <a :href="`#/book/index/${encodeURIComponent(book.url)}`" class="link-unstyled">
           <img
             :src="
               book.thumbnail
@@ -26,10 +23,13 @@
             alt="Book cover"
             class="mb-4 shadow book-thumb"
           />
-          <Annotate tag="h6"><b>{{ book.title }}</b></Annotate>
-          <Annotate tag="small" v-if="book.author"><span>{{ book.author }}</span></Annotate>
-          </a
-        >
+          <Annotate tag="h6">
+            <b>{{ book.title }}</b>
+          </Annotate>
+          <Annotate tag="small" v-if="book.author">
+            <span>{{ book.author }}</span>
+          </Annotate>
+        </a>
       </li>
     </ul>
   </div>

@@ -13,10 +13,10 @@
       <a
         v-if="random"
         class="btn btn-secondary btn-random ml-2"
-        href="#/dictionary/freedict/random"
+        :href="`#/${$lang.code}/dictionary/freedict/random`"
       >
         <font-awesome-icon icon="random" />
-        <span> Random</span>
+        <span>Random</span>
       </a>
       <div class="input-group-append">
         <button
@@ -29,26 +29,17 @@
         </button>
       </div>
     </div>
-    <div
-      class="suggestions"
-      :key="suggestionsKey"
-      v-cloak
-      v-if="active && text && text.length > 0"
-    >
-      <a
-        class="suggestion"
-        v-for="suggestion in suggestions"
-        :href="hrefFunc(suggestion)"
-      >
+    <div class="suggestions" :key="suggestionsKey" v-cloak v-if="active && text && text.length > 0">
+      <a class="suggestion" v-for="suggestion in suggestions" :href="hrefFunc(suggestion)">
         <span>
           <span
             class="suggestion-word font-weight-bold mr-1"
             data-level="outside"
-            >{{ suggestion.bare }}</span
-          >
-          <span class="mr-1" v-if="suggestion.match"
-            >{{ suggestion.match.field }} of <b>{{ suggestion.bare }}</b></span
-          >
+          >{{ suggestion.bare }}</span>
+          <span class="mr-1" v-if="suggestion.match">
+            {{ suggestion.match.field }} of
+            <b>{{ suggestion.bare }}</b>
+          </span>
           <span
             class="suggestion-english"
             v-if="suggestion.english"
@@ -56,10 +47,7 @@
           ></span>
         </span>
       </a>
-      <div
-        class="suggestion"
-        v-if="suggestions.length === 0 && type === 'dictionary'"
-      >
+      <div class="suggestion" v-if="suggestions.length === 0 && type === 'dictionary'">
         <span class="suggestion-not-found">
           <b>&ldquo;{{ text }}&rdquo;</b> is not in
           <a href="https://en.freedict.org/dictionary">FreeDict.org</a>.
@@ -67,24 +55,15 @@
           <a
             :href="`https://en.wiktionary.org/w/index.php?search=${text}`"
             target="blank"
-            >Wiktionary</a
-          >,
-          <a
-            :href="`https://en.wikipedia.org/w/index.php?search=${text}`"
-            target="blank"
-            >Wikipedia</a
-          >, or
-          <a :href="`https://www.google.com/search?q=${text}`" target="blank"
-            >Google.</a
-          >
+          >Wiktionary</a>,
+          <a :href="`https://en.wikipedia.org/w/index.php?search=${text}`" target="blank">Wikipedia</a>, or
+          <a :href="`https://www.google.com/search?q=${text}`" target="blank">Google.</a>
         </span>
       </div>
-      <div
-        class="suggestion"
-        v-if="suggestions.length === 0 && type === 'generic'"
-      >
+      <div class="suggestion" v-if="suggestions.length === 0 && type === 'generic'">
         <span class="suggestion-not-found">
-          Search for <b>“{{ text }}”</b>...
+          Search for
+          <b>“{{ text }}”</b>...
         </span>
       </div>
     </div>
@@ -110,13 +89,9 @@ export default {
       type: Function,
       default: function(entry) {
         if (entry) {
-          return `#/dictionary/freedict/${entry.id}`
+          return `#/${this.$lang.code}/dictionary/freedict/${entry.id}`
         }
       }
-    },
-    defaultURL: {
-      type: Function,
-      default: () => `#/di`
     },
     placeholder: {
       default: 'Look up words here...'
@@ -147,19 +122,20 @@ export default {
     },
     async text() {
       if (this.type === 'dictionary') {
-        this.suggestions = await (await this.$freedict).lookupFuzzy(this.text, 30)
+        this.suggestions = await (await this.$dictionary).lookupFuzzy(
+          this.text,
+          30
+        )
       }
     }
   },
   methods: {
     lookupKeyupEnter() {
-      const url =
-        $('.suggestion:first-child').attr('href')
+      const url = $('.suggestion:first-child').attr('href')
       if (url) window.location = url
     },
     lookupButtonClick() {
-      const url =
-        $('.suggestion:first-child').attr('href')
+      const url = $('.suggestion:first-child').attr('href')
       if (url) {
         this.suggestions = []
         window.location = url

@@ -85,11 +85,11 @@ export default {
           return groups
         }, {})
       }
-      let forms = await (await this.$freedict).wordForms(this.word)
+      let forms = await (await this.$dictionary).wordForms(this.word)
       for (let form of forms) {
-        form.form = await (await this.$freedict).accent(form.form)
-        form.field = await (await this.$freedict).stylize(form.field)
-        form.table = await (await this.$freedict).stylize(form.table)
+        form.form = await (await this.$dictionary).accent(form.form)
+        form.field = await (await this.$dictionary).stylize(form.field)
+        form.table = await (await this.$dictionary).stylize(form.table)
       }
       this.tables = forms.groupBy('table')
       console.log(this.tables)
