@@ -1,4 +1,9 @@
 const FreeDict = {
+  filenames: {
+    afr: 'afr-eng',
+    fr: 'fra-eng',
+    de: 'deu-eng',
+  },
   file: undefined,
   words: [],
   index: {},
@@ -73,11 +78,7 @@ const FreeDict = {
     return words
   },
   load(lang) {
-    let filename = {
-      fr: 'fra-eng',
-      de: 'deu-eng',
-    }
-    this.file = `/data/${filename[lang]}.dict.txt`
+    this.file = `/data/${this.filenames[lang]}.dict.txt`
     return new Promise(async resolve => {
       let promises = [this.loadWords()]
       await Promise.all(promises)
