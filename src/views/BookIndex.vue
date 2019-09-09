@@ -39,9 +39,9 @@
               'link-unstyled': true,
               active:
                 location.hash ===
-                `#/book/chapter/${encodeURIComponent(chapter.url)}`
+                `#/${$lang.code}/book/chapter/${encodeURIComponent(chapter.url)}`
             }"
-            :href="`#/book/chapter/${encodeURIComponent(chapter.url)}`"
+            :href="`#/${$lang.code}/book/chapter/${encodeURIComponent(chapter.url)}`"
           >
             <span>{{ chapter.title }}</span>
           </Annotate>

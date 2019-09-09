@@ -51,7 +51,7 @@
       <div class="col-md-4 text-center" :key="'book-' + bookTitle">
         <a
           :href="
-            bookURL ? `#/book/index/${encodeURIComponent(bookURL)}` : false
+            bookURL ? `#/${$lang.code}/book/index/${encodeURIComponent(bookURL)}` : false
           "
           class="link-unstyled"
         >
@@ -98,9 +98,9 @@
               'link-unstyled': true,
               active:
                 location.hash ===
-                `#/book/chapter/${encodeURIComponent(chapter.url)}`
+                `#/${$lang.code}/book/chapter/${encodeURIComponent(chapter.url)}`
             }"
-            :href="`#/book/chapter/${encodeURIComponent(chapter.url)}`"
+            :href="`#/${$lang.code}/book/chapter/${encodeURIComponent(chapter.url)}`"
             ><span>{{ chapter.title }}</span></Annotate
           >
         </div>
@@ -200,10 +200,10 @@ export default {
       }
     },
     previousClick() {
-      location.hash = `#/book/chapter/${encodeURIComponent(this.previous)}`
+      location.hash = `#/${this.$lang.code}/book/chapter/${encodeURIComponent(this.previous)}`
     },
     nextClick() {
-      location.hash = `#/book/chapter/${encodeURIComponent(this.next)}`
+      location.hash = `#/${this.$lang.code}/book/chapter/${encodeURIComponent(this.next)}`
     }
   },
   async mounted() {

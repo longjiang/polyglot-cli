@@ -16,7 +16,7 @@
           <li v-for="booklist in booklists" class="text-center mb-5">
             <a
               class="link-unstyled"
-              :href="`#/book/list/${encodeURIComponent(booklist.url)}`"
+              :href="`#/${$lang.code}/book/list/${encodeURIComponent(booklist.url)}`"
             >
               <img
                 :src="`/img/books-${Math.floor(Math.random() * 10)}.png`"
