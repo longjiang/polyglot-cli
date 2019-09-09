@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://zh.zerotohero.ca",
+    "code": "zh",
+    "name": "Chinese"
+  },
+  {
+    "url": "https://yingyuyingxiong.teachable.com",
+    "code": "en",
+    "name": "English"
+  },
+  {
+    "url": "https://ko.zerotohero.ca",
+    "code": "ko",
+    "name": "Korean"
+  },
+  {
+    "url": "https://ja.zerotohero.ca",
+    "code": "ja",
+    "name": "Japanese"
+  },
+  {
+    "url": "https://ru.zerotohero.ca",
+    "code": "ru",
+    "name": "Russian"
+  },
+  {
+    "url": "https://de.zerotohero.ca",
+    "code": "de",
+    "name": "German"
+  },
+  {
+    "url": "https://fr.zerotohero.ca",
+    "code": "fr",
+    "name": "French"
+  },
+  {
+    "url": "https://hi.zerotohero.ca",
+    "code": "hi",
+    "name": "Hindi"
+  },
+  {
+    "url": "https://tlh.zerotohero.ca",
+    "code": "tlh",
+    "name": "Klingon"
+  }
+]
