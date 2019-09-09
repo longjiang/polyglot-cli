@@ -1,5 +1,5 @@
 const FreeDict = {
-  file: '/data/fra-eng.dict.txt',
+  file: undefined,
   words: [],
   index: {},
   cache: {},
@@ -24,7 +24,7 @@ const FreeDict = {
   parseDictionary(text) {
     text = text.replace(/(.|\n)*-English FreeDict Dictionary .*\n/m, '')
     let words = []
-    console.log('Parsing FreeDict Dictionary...')
+    console.log('Parsing FreeDict Dictionary from ' + this.file)
     let lines = text.split('\n')
     for (let index in lines) {
       index = parseInt(index)
@@ -72,7 +72,12 @@ const FreeDict = {
     })
     return words
   },
-  load() {
+  load(lang) {
+    let filename = {
+      fr: 'fra-eng',
+      de: 'deu-eng',
+    }
+    this.file = `/data/${filename[lang]}.dict.txt`
     return new Promise(async resolve => {
       let promises = [this.loadWords()]
       await Promise.all(promises)

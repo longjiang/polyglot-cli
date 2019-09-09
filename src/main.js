@@ -14,7 +14,6 @@ import Loader from '@/components/Loader.vue'
 import Star from '@/components/Star'
 import Speak from '@/components/Speak'
 import ShowMoreButton from '@/components/ShowMoreButton'
-import FreeDict from '@/lib/freedict'
 import VueObserveVisibility from 'vue-observe-visibility'
 import Config from '@/lib/config'
 
@@ -44,9 +43,6 @@ Vue.component('Star', Star)
 Vue.component('Speak', Speak)
 Vue.component('ShowMoreButton', ShowMoreButton)
 Vue.component('WordList', WordList)
-
-Vue.prototype.$dictionary = FreeDict.load()
-
 
 // https://alligator.io/vuejs/vue-router-modify-head/
 // This callback runs before every route change, including on page load.

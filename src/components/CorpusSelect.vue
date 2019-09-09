@@ -15,7 +15,7 @@
         <tr
           v-for="corpus in SketchEngine.corpora.filter(
             corpus =>
-              corpus.language_name === this.$lang.name && (!(corpus.tags && corpus.tags.includes('learner')))
+              corpus.language_name === $lang.name && (!(corpus.tags && corpus.tags.includes('learner')))
           ).sort((a,b) => b.sizes.wordcount - a.sizes.wordcount)"
         >
           <td>
@@ -56,6 +56,10 @@ export default {
       SketchEngine,
       corpname: SketchEngine.corpname()
     }
+  },
+  mounted() {
+    console.log(
+      SketchEngine.corpora.filter(corpus => corpus.language_id.startsWith('fr')))
   },
   watch: {
     corpname() {

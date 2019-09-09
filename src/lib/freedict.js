@@ -3,10 +3,11 @@ import Helper from '@/lib/helper'
 
 export default {
   worder: undefined,
-  load() {
+  load(lang) {
     return new Promise(resolve => {
       // worker ready
       this.worker = new Worker('./workers/freedict-worker.js')
+      this.worker.postMessage([3, 'load', [lang]])
       this.worker.addEventListener('message', e => {
         if (e.data[1] === 'load' && e.data[2] === 'ready') {
           this.worker.postMessage([1, 'freedictMethods'])
