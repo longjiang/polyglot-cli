@@ -33,17 +33,10 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="zerotohero">
-                <a v-for="language in languages.filter(language => language.url)" :href="language.url.replace('https://polyglot.zerotohero.ca/', '/')" target="_blank" class="mr-4">
-                  <img
-                    :src="
-                      `${Config.server}img/logo-${language.code}-zth-light.png`
-                    "
-                    :alt="`${language.name} Zero to Hero`"
-                    v-if="language.logo"
-                    class="logo-footer"
-                  />
-                  <span v-else>{{ language.name }} Zero to Hero</span>
-                </a>
+                <LanguageLogo
+                  v-for="language in languages.filter(language => language.url)"
+                  :language="language"
+                />
               </div>
               <hr class="border-light mt-0 mb-4" style="opacity: 0.5" />
               <p>
@@ -67,6 +60,7 @@
 <script>
 import Nav from '@/components/Nav'
 import SubNav from '@/components/SubNav'
+import LanguageLogo from '@/components/LanguageLogo'
 import Config from '@/lib/config'
 import Vue from 'vue'
 import FreeDict from '@/lib/freedict'
@@ -74,7 +68,8 @@ import FreeDict from '@/lib/freedict'
 export default {
   components: {
     Nav,
-    SubNav
+    SubNav,
+    LanguageLogo
   },
   data() {
     return {
@@ -112,7 +107,14 @@ export default {
 .logo {
   height: 6rem;
 }
-.logo-footer {
-  height: 4rem;
+.zerotohero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: bottom;
+  justify-content: space-around;
+}
+.zerotohero-item {
+  flex: 1;
+  min-width: 10rem;
 }
 </style>
