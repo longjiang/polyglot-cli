@@ -9,6 +9,7 @@
                 <img
                   :src="`${Config.server}img/logo-${$lang.code}-zth-light.png`"
                   :alt="`${$lang.name} Zero to Hero`"
+                  v-if="lang.logo"
                   class="logo"
                 />
               </router-link>
@@ -27,20 +28,21 @@
         <router-view ref="routerView" />
       </keep-alive>
 
-      <!--
       <footer class="container-fluid bg-dark text-light pt-4 pb-4">
         <div class="container">
           <div class="row">
             <div class="col-sm-12">
               <div class="zerotohero">
-                <a v-for="language in languages" :href="language.url" target="_blank" class="mr-4">
+                <a v-for="language in languages.filter(language => language.url)" :href="language.url.replace('https://polyglot.zerotohero.ca/', '/')" target="_blank" class="mr-4">
                   <img
                     :src="
                       `${Config.server}img/logo-${language.code}-zth-light.png`
                     "
                     :alt="`${language.name} Zero to Hero`"
+                    v-if="language.logo"
                     class="logo-footer"
                   />
+                  <span v-else>{{ language.name }} Zero to Hero</span>
                 </a>
               </div>
               <hr class="border-light mt-0 mb-4" style="opacity: 0.5" />
@@ -58,7 +60,6 @@
           </div>
         </div>
       </footer>
-      -->
     </template>
   </div>
 </template>

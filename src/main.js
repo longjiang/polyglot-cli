@@ -101,7 +101,7 @@ if (location.hash === '#/test') {
     render: h => h(Test)
   }).$mount('#test')
 } else {
-  $.getJSON('/data/languages.json', langs => {
+  $.getJSON(`${Config.server}data/languages.json`, langs => {
     Vue.prototype.$langs = langs
     new Vue({
       router,
