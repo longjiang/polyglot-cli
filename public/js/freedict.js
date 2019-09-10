@@ -1,8 +1,33 @@
 const FreeDict = {
   filenames: {
-    afr: 'afr-eng',
-    fr: 'fra-eng',
+    af: 'afr-eng',
+    ar: 'ara-eng',
+    cs: 'ces-eng',
+    cy: 'cym-eng',
+    da: 'dan-eng',
     de: 'deu-eng',
+    eo: 'epo-eng',
+    fi: 'fin-eng',
+    fr: 'fra-eng',
+    ga: 'gle-eng',
+    hr: 'hrv-eng',
+    hu: 'hun-eng',
+    is: 'isl-eng',
+    it: 'ita-eng',
+    ja: 'jpn-eng',
+    kh: 'kha-eng',
+    ku: 'kur-eng',
+    la: 'lat-eng',
+    lt: 'lit-eng',
+    nl: 'nld-eng',
+    pl: 'pol-eng',
+    pt: 'por-eng',
+    sk: 'slk-eng',
+    es: 'spa-eng',
+    sr: 'srp-eng',
+    sv: 'swe-eng',
+    sw: 'swh-eng',
+    tr: 'tur-eng'
   },
   file: undefined,
   words: [],
@@ -26,11 +51,28 @@ const FreeDict = {
       xhttp.send()
     })
   },
-  parseDictionary(text) {
-    text = text.replace(/(.|\n)*-English FreeDict Dictionary .*\n/m, '')
+  parseSingleLine(lines) {
     let words = []
-    console.log('Parsing FreeDict Dictionary from ' + this.file)
-    let lines = text.split('\n')
+    for (let index in lines) {
+      index = parseInt(index)
+      if (index % 2 === 0) {
+        let matches = lines[index].match(/(.*) \/(.*)\//)
+        let matches2 = lines[index].match(/<(.*)>/)
+        let word = {
+          bare: lines[index],
+          head: lines[index],
+          pronunciation: matches ? matches[2] : undefined,
+          definitions: lines[index + 1],
+          pos: matches2 && matches2.length > 1 ? matches2[1] : undefined
+        }
+        word.accented = word.bare
+        words.push(word)
+      }
+    }
+    return words
+  },
+  parseMultiline(lines) {
+    let words = []
     for (let index in lines) {
       index = parseInt(index)
       let polyglot = lines[index]
@@ -66,6 +108,18 @@ const FreeDict = {
         words.push(word)
       }
     }
+    return words
+  },
+  parseDictionary(text, single = false) {
+    text = text.replace(/^[^\n]*\n/m, '') // remove title line
+    console.log('Parsing FreeDict Dictionary from ' + this.file)
+    let lines = text.split('\n')
+    let words = []
+    if(single) {
+      words = this.parseSingleLine(lines)
+    } else {
+      words = this.parseMultiline(lines)
+    }
     words = words.sort((a, b) => {
       if (a.head && b.head) {
         return a.head.length - b.head.length
@@ -78,7 +132,8 @@ const FreeDict = {
     return words
   },
   load(lang) {
-    this.file = `/data/${this.filenames[lang]}.dict.txt`
+    console.log('Loading FreeDict...')
+    this.file = `/data/freedict/${this.filenames[lang]}.dict.txt`
     return new Promise(async resolve => {
       let promises = [this.loadWords()]
       await Promise.all(promises)
