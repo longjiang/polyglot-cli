@@ -27,6 +27,7 @@
         <router-view ref="routerView" />
       </keep-alive>
 
+      <!--
       <footer class="container-fluid bg-dark text-light pt-4 pb-4">
         <div class="container">
           <div class="row">
@@ -57,6 +58,7 @@
           </div>
         </div>
       </footer>
+      -->
     </template>
   </div>
 </template>

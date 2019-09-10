@@ -9,9 +9,14 @@ export default new Router({
   },
   routes: [
     {
+      path: '/',
+      name: 'home-redirect',
+      redirect: `/de/dictionary` // defaulting to /de if no language is set
+    },
+    {
       path: '/:lang',
       name: 'home',
-      redirect: `/:lang/dictionary` // defaulting to /fr if no language is set
+      redirect: `/:lang/dictionary`
     },
     {
       path: '/:lang/dictionary/:method?/:args?',

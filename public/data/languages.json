@@ -12,7 +12,8 @@
   {
     "code": "af",
     "code2": "afr",
-    "name": "Afrikaans"
+    "name": "Afrikaans",
+    "dictionary": "freedict"
   },
   {
     "code": "ak",
@@ -32,7 +33,8 @@
   {
     "code": "ar",
     "code2": "ara",
-    "name": "Arabic"
+    "name": "Arabic",
+    "dictionary": "freedict"
   },
   {
     "code": "an",
@@ -137,7 +139,8 @@
   {
     "code": "cs",
     "code2": "ces (T)",
-    "name": "Czech"
+    "name": "Czech",
+    "dictionary": "freedict"
   },
   {
     "code": "ch",
@@ -182,7 +185,8 @@
   {
     "code": "cy",
     "code2": "cym (T)",
-    "name": "Welsh"
+    "name": "Welsh",
+    "dictionary": "freedict"
   },
   {
     "code": "cs",
@@ -192,12 +196,14 @@
   {
     "code": "da",
     "code2": "dan",
-    "name": "Danish"
+    "name": "Danish",
+    "dictionary": "freedict"
   },
   {
     "code": "de",
     "code2": "deu (T)",
-    "name": "German"
+    "name": "German",
+    "dictionary": "freedict"
   },
   {
     "code": "dv",
@@ -227,7 +233,8 @@
   {
     "code": "eo",
     "code2": "epo",
-    "name": "Esperanto"
+    "name": "Esperanto",
+    "dictionary": "freedict"
   },
   {
     "code": "et",
@@ -257,7 +264,8 @@
   {
     "code": "fj",
     "code2": "fij",
-    "name": "Fijian"
+    "name": "Fijian",
+    "dictionary": "freedict"
   },
   {
     "code": "fi",
@@ -267,7 +275,8 @@
   {
     "code": "fr",
     "code2": "fra (T)",
-    "name": "French"
+    "name": "French",
+    "dictionary": "freedict"
   },
   {
     "code": "fr",
@@ -302,7 +311,8 @@
   {
     "code": "ga",
     "code2": "gle",
-    "name": "Irish"
+    "name": "Irish",
+    "dictionary": "freedict"
   },
   {
     "code": "gl",
@@ -362,12 +372,14 @@
   {
     "code": "hr",
     "code2": "hrv",
-    "name": "Croatian"
+    "name": "Croatian",
+    "dictionary": "freedict"
   },
   {
     "code": "hu",
     "code2": "hun",
-    "name": "Hungarian"
+    "name": "Hungarian",
+    "dictionary": "freedict"
   },
   {
     "code": "hy",
@@ -382,7 +394,8 @@
   {
     "code": "is",
     "code2": "isl (T)",
-    "name": "Icelandic"
+    "name": "Icelandic",
+    "dictionary": "freedict"
   },
   {
     "code": "io",
@@ -427,7 +440,8 @@
   {
     "code": "it",
     "code2": "ita",
-    "name": "Italian"
+    "name": "Italian",
+    "dictionary": "freedict"
   },
   {
     "code": "jv",
@@ -437,7 +451,8 @@
   {
     "code": "ja",
     "code2": "jpn",
-    "name": "Japanese"
+    "name": "Japanese",
+    "dictionary": "freedict"
   },
   {
     "code": "kl",
@@ -512,7 +527,8 @@
   {
     "code": "ku",
     "code2": "kur",
-    "name": "Kurdish"
+    "name": "Kurdish",
+    "dictionary": "freedict"
   },
   {
     "code": "lo",
@@ -522,7 +538,8 @@
   {
     "code": "la",
     "code2": "lat",
-    "name": "Latin"
+    "name": "Latin",
+    "dictionary": "freedict"
   },
   {
     "code": "lv",
@@ -542,7 +559,8 @@
   {
     "code": "lt",
     "code2": "lit",
-    "name": "Lithuanian"
+    "name": "Lithuanian",
+    "dictionary": "freedict"
   },
   {
     "code": "lb",
@@ -657,7 +675,8 @@
   {
     "code": "nl",
     "code2": "nld (T)",
-    "name": "Dutch"
+    "name": "Dutch",
+    "dictionary": "freedict"
   },
   {
     "code": "nn",
@@ -722,12 +741,14 @@
   {
     "code": "pl",
     "code2": "pol",
-    "name": "Polish"
+    "name": "Polish",
+    "dictionary": "freedict"
   },
   {
     "code": "pt",
     "code2": "por",
-    "name": "Portuguese"
+    "name": "Portuguese",
+    "dictionary": "freedict"
   },
   {
     "code": "ps",
@@ -782,12 +803,8 @@
   {
     "code": "sk",
     "code2": "slk (T)",
-    "name": "Slovak"
-  },
-  {
-    "code": "sk",
-    "code2": "slk (T)",
-    "name": "Slovak"
+    "name": "Slovak",
+    "dictionary": "freedict"
   },
   {
     "code": "sl",
@@ -827,7 +844,8 @@
   {
     "code": "es",
     "code2": "spa",
-    "name": "Spanish"
+    "name": "Spanish",
+    "dictionary": "freedict"
   },
   {
     "code": "sq",
@@ -842,7 +860,8 @@
   {
     "code": "sr",
     "code2": "srp",
-    "name": "Serbian"
+    "name": "Serbian",
+    "dictionary": "freedict"
   },
   {
     "code": "ss",
@@ -857,12 +876,14 @@
   {
     "code": "sw",
     "code2": "swa",
-    "name": "Swahili"
+    "name": "Swahili",
+    "dictionary": "freedict"
   },
   {
     "code": "sv",
     "code2": "swe",
-    "name": "Swedish"
+    "name": "Swedish",
+    "dictionary": "freedict"
   },
   {
     "code": "ty",
@@ -932,7 +953,8 @@
   {
     "code": "tr",
     "code2": "tur",
-    "name": "Turkish"
+    "name": "Turkish",
+    "dictionary": "freedict"
   },
   {
     "code": "tw",
