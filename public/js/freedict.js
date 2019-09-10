@@ -29,6 +29,7 @@ const FreeDict = {
     sw: 'swh-eng',
     tr: 'tur-eng'
   },
+  lang: undefined,
   file: undefined,
   words: [],
   index: {},
@@ -40,7 +41,6 @@ const FreeDict = {
       let xhttp = new XMLHttpRequest()
       let that = this
       xhttp.onreadystatechange = function() {
-        
         if (this.readyState == 4 && this.status == 200) {
           that.words = that.parseDictionary(this.responseText)
           resolve()
@@ -51,27 +51,7 @@ const FreeDict = {
       xhttp.send()
     })
   },
-  parseSingleLine(lines) {
-    let words = []
-    for (let index in lines) {
-      index = parseInt(index)
-      if (index % 2 === 0) {
-        let matches = lines[index].match(/(.*) \/(.*)\//)
-        let matches2 = lines[index].match(/<(.*)>/)
-        let word = {
-          bare: lines[index],
-          head: lines[index],
-          pronunciation: matches ? matches[2] : undefined,
-          definitions: lines[index + 1],
-          pos: matches2 && matches2.length > 1 ? matches2[1] : undefined
-        }
-        word.accented = word.bare
-        words.push(word)
-      }
-    }
-    return words
-  },
-  parseMultiline(lines) {
+  parseLines(lines) {
     let words = []
     for (let index in lines) {
       index = parseInt(index)
@@ -110,16 +90,12 @@ const FreeDict = {
     }
     return words
   },
-  parseDictionary(text, single = false) {
+  parseDictionary(text) {
     text = text.replace(/^[^\n]*\n/m, '') // remove title line
     console.log('Parsing FreeDict Dictionary from ' + this.file)
     let lines = text.split('\n')
     let words = []
-    if(single) {
-      words = this.parseSingleLine(lines)
-    } else {
-      words = this.parseMultiline(lines)
-    }
+    words = this.parseLines(lines)
     words = words.sort((a, b) => {
       if (a.head && b.head) {
         return a.head.length - b.head.length
@@ -133,7 +109,8 @@ const FreeDict = {
   },
   load(lang) {
     console.log('Loading FreeDict...')
-    this.file = `/data/freedict/${this.filenames[lang]}.dict.txt`
+    this.lang = lang
+    this.file = `/data/freedict/${this.filenames[this.lang]}.dict.txt`
     return new Promise(async resolve => {
       let promises = [this.loadWords()]
       await Promise.all(promises)
