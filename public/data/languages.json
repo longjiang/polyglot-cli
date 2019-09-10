@@ -132,7 +132,7 @@
   {
     "code": "ca",
     "code2": "cat",
-    "name": "Catalan; Valencian"
+    "name": "Catalan"
   },
   {
     "code": "cs",
@@ -157,7 +157,7 @@
   {
     "code": "cu",
     "code2": "chu",
-    "name": "Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic"
+    "name": "Church Slavic"
   },
   {
     "code": "cv",
@@ -202,12 +202,12 @@
   {
     "code": "dv",
     "code2": "div",
-    "name": "Divehi; Dhivehi; Maldivian"
+    "name": "Divehi"
   },
   {
     "code": "nl",
     "code2": "nld (T)",
-    "name": "Dutch; Flemish"
+    "name": "Dutch"
   },
   {
     "code": "dz",
@@ -297,7 +297,7 @@
   {
     "code": "gd",
     "code2": "gla",
-    "name": "Gaelic; Scottish Gaelic"
+    "name": "Gaelic"
   },
   {
     "code": "ga",
@@ -332,7 +332,7 @@
   {
     "code": "ht",
     "code2": "hat",
-    "name": "Haitian; Haitian Creole"
+    "name": "Haitian"
   },
   {
     "code": "ha",
@@ -392,7 +392,7 @@
   {
     "code": "ii",
     "code2": "iii",
-    "name": "Sichuan Yi; Nuosu"
+    "name": "Sichuan Yi"
   },
   {
     "code": "iu",
@@ -402,7 +402,7 @@
   {
     "code": "ie",
     "code2": "ile",
-    "name": "Interlingue; Occidental"
+    "name": "Interlingue"
   },
   {
     "code": "ia",
@@ -442,7 +442,7 @@
   {
     "code": "kl",
     "code2": "kal",
-    "name": "Kalaallisut; Greenlandic"
+    "name": "Kalaallisut"
   },
   {
     "code": "kn",
@@ -477,7 +477,7 @@
   {
     "code": "ki",
     "code2": "kik",
-    "name": "Kikuyu; Gikuyu"
+    "name": "Kikuyu"
   },
   {
     "code": "rw",
@@ -487,7 +487,7 @@
   {
     "code": "ky",
     "code2": "kir",
-    "name": "Kirghiz; Kyrgyz"
+    "name": "Kirghiz"
   },
   {
     "code": "kv",
@@ -507,7 +507,7 @@
   {
     "code": "kj",
     "code2": "kua",
-    "name": "Kuanyama; Kwanyama"
+    "name": "Kuanyama"
   },
   {
     "code": "ku",
@@ -532,7 +532,7 @@
   {
     "code": "li",
     "code2": "lim",
-    "name": "Limburgan; Limburger; Limburgish"
+    "name": "Limburgan"
   },
   {
     "code": "ln",
@@ -547,7 +547,7 @@
   {
     "code": "lb",
     "code2": "ltz",
-    "name": "Luxembourgish; Letzeburgesch"
+    "name": "Luxembourgish"
   },
   {
     "code": "lu",
@@ -632,17 +632,17 @@
   {
     "code": "nv",
     "code2": "nav",
-    "name": "Navajo; Navaho"
+    "name": "Navajo"
   },
   {
     "code": "nr",
     "code2": "nbl",
-    "name": "Ndebele, South; South Ndebele"
+    "name": "Ndebele, South"
   },
   {
     "code": "nd",
     "code2": "nde",
-    "name": "Ndebele, North; North Ndebele"
+    "name": "Ndebele, North"
   },
   {
     "code": "ng",
@@ -657,17 +657,17 @@
   {
     "code": "nl",
     "code2": "nld (T)",
-    "name": "Dutch; Flemish"
+    "name": "Dutch"
   },
   {
     "code": "nn",
     "code2": "nno",
-    "name": "Norwegian Nynorsk; Nynorsk, Norwegian"
+    "name": "Norwegian Nynorsk"
   },
   {
     "code": "nb",
     "code2": "nob",
-    "name": "Bokmål, Norwegian; Norwegian Bokmål"
+    "name": "Bokmål, Norwegian"
   },
   {
     "code": "no",
@@ -677,7 +677,7 @@
   {
     "code": "ny",
     "code2": "nya",
-    "name": "Chichewa; Chewa; Nyanja"
+    "name": "Chichewa"
   },
   {
     "code": "oc",
@@ -702,12 +702,12 @@
   {
     "code": "os",
     "code2": "oss",
-    "name": "Ossetian; Ossetic"
+    "name": "Ossetian"
   },
   {
     "code": "pa",
     "code2": "pan",
-    "name": "Panjabi; Punjabi"
+    "name": "Panjabi"
   },
   {
     "code": "fa",
@@ -732,7 +732,7 @@
   {
     "code": "ps",
     "code2": "pus",
-    "name": "Pushto; Pashto"
+    "name": "Pushto"
   },
   {
     "code": "qu",
@@ -747,12 +747,12 @@
   {
     "code": "ro",
     "code2": "ron (T)",
-    "name": "Romanian; Moldavian; Moldovan"
+    "name": "Romanian"
   },
   {
     "code": "ro",
     "code2": "ron (T)",
-    "name": "Romanian; Moldavian; Moldovan"
+    "name": "Romanian"
   },
   {
     "code": "rn",
@@ -777,7 +777,7 @@
   {
     "code": "si",
     "code2": "sin",
-    "name": "Sinhala; Sinhalese"
+    "name": "Sinhala"
   },
   {
     "code": "sk",
@@ -827,7 +827,7 @@
   {
     "code": "es",
     "code2": "spa",
-    "name": "Spanish; Castilian"
+    "name": "Spanish"
   },
   {
     "code": "sq",
@@ -942,7 +942,7 @@
   {
     "code": "ug",
     "code2": "uig",
-    "name": "Uighur; Uyghur"
+    "name": "Uighur"
   },
   {
     "code": "uk",
@@ -1007,7 +1007,7 @@
   {
     "code": "za",
     "code2": "zha",
-    "name": "Zhuang; Chuang"
+    "name": "Zhuang"
   },
   {
     "code": "zh",
