@@ -110,11 +110,10 @@ export default {
 .zerotohero {
   display: flex;
   flex-wrap: wrap;
-  align-items: bottom;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: flex-start;
 }
 .zerotohero-item {
-  flex: 1;
-  min-width: 10rem;
+  width: 12rem;
 }
 </style>
