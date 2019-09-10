@@ -34,7 +34,7 @@
             <div class="col-sm-12">
               <div class="zerotohero">
                 <LanguageLogo
-                  v-for="language in languages.filter(language => language.url)"
+                  v-for="language in languages.filter(language => language.url).sort((a,b) => b.name > a.name ? -1 : 0)"
                   :language="language"
                 />
               </div>

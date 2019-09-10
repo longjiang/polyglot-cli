@@ -10,14 +10,16 @@
     "
       :alt="`${language.name} Zero to Hero`"
       v-if="language.logo"
-      class="logo-footer"
+      class="logo-image"
     />
-    <div v-else>
+    <div v-else class="logo-constructed">
       <div class="logo-circle">
         <div
           class="logo-speech-bubble"
           :style="`background-image: url(${Config.server}img/speech-light.png)`"
-        ><b>{{ language.name.slice(0,1).toUpperCase()}}{{ language.name.slice(1,2) }}</b></div>
+        >
+          <b>{{ language.name.slice(0,1).toUpperCase()}}{{ language.name.slice(1,2) }}</b>
+        </div>
       </div>
       <div class="logo-text text-white">
         <div class="logo-text-language">{{ language.name.toUpperCase() }}</div>
@@ -41,11 +43,25 @@ export default {
 </script>
 
 <style>
-.logo-footer {
+.logo-image {
   height: 4rem;
+}
+.logo-constructed {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 0.8rem;
+}
+.logo-circle {
+  height: 2.75rem;
+  width: 2.75rem;
+  background: #ccc;
+  border-radius: 100%;
+  position: relative;
+  margin-right: 0.7rem;
 }
 .logo-text {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  margin-bottom: -0.4rem;
 }
 .logo-speech-bubble {
   height: 2rem;
@@ -55,6 +71,9 @@ export default {
   text-align: center;
   font-size: 0.7rem;
   color: #555;
+  position: absolute;
+  right: -0.4rem;
+  top: -0.8rem;
 }
 .logo-speech-bubble b {
   display: block;
