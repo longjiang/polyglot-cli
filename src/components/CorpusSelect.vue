@@ -54,16 +54,17 @@ export default {
   data() {
     return {
       SketchEngine,
-      corpname: SketchEngine.corpname()
+      corpname: SketchEngine.corpname(this.$lang.code)
     }
   },
   mounted() {
-    console.log(
-      SketchEngine.corpora.filter(corpus => corpus.language_id.startsWith('fr')))
+    console.log(this.corpname)
   },
   watch: {
     corpname() {
-      localStorage.setItem('fzhCorpname', this.corpname)
+      let corpnames = JSON.parse(localStorage.getItem('zthCorpnames')) || {}
+      corpnames[this.$lang.code] = this.corpname
+      localStorage.setItem('zthCorpnames', JSON.stringify(corpnames))
       location.reload() // Otherwise users won't see the new collocations and example sentences, leaving them confused.
     }
   }

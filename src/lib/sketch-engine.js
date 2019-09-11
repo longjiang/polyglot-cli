@@ -5,8 +5,19 @@ import SketchEngineCorpora from './sketch-engine-corpora'
 
 export default {
   corpora: SketchEngineCorpora,
-  corpname() {
-    return localStorage.getItem('fzhCorpname') || 'frtenten17_fl2'
+  corpname(lang) {
+    if (lang) {
+      let corpnames = JSON.parse(localStorage.getItem('zthCorpnames') || '{}')
+      let defaultCorpus = this.corpora.find(
+        corpus => corpus.language_id === 'fi' && corpus.is_featured
+      )
+      let defaultCorpusName = defaultCorpus
+        ? defaultCorpus.corpname
+        : this.corpora.filter(
+          corpus => corpus.language_id === lang
+        ).sort((a,b) => b.sizes.wordcount - a.sizes.wordcount)[0].corpname
+      return corpnames[lang] || defaultCorpusName
+    }
   },
   collocationDescription(word) {
     return {
@@ -15,16 +26,17 @@ export default {
       'verbs before "%w"': `verbs before "${word}"`,
       '"%w" and/or ...': `"${word}" and/or ...`,
       'prepositional phrases': 'prepositional phrases',
-      'more': 'more',
+      more: 'more',
       'less "%w" than ...': `less "${word}" than ...`,
       'pronoun is "%w"': `pronoun is "${word}"`,
       'verbs with "%w" as object': `verbs with "${word}" as object`,
       'verbs with "%w" as subject': `verbs with "${word}" as subject`,
       'usage patterns': 'usage patterns',
-      'prepositions preceeding noun/nouns after preposition': 'prepositions preceeding noun/nouns after preposition',
+      'prepositions preceeding noun/nouns after preposition':
+        'prepositions preceeding noun/nouns after preposition',
       'nouns modified by noun "%w"': `nouns modified by noun "${word}"`,
       'noun modifiers of "%w"': `noun modifiers of "${word}"`,
-      'objects of "%w"':`objects of "${word}"`,
+      'objects of "%w"': `objects of "${word}"`
     }
   },
   wsketch(term, callback) {
@@ -32,10 +44,10 @@ export default {
       `${
         Config.sketchEngineProxy
       }?https://api.sketchengine.eu/bonito/run.cgi/wsketch?corpname=preloaded/${this.corpname()}&lemma=${term}`,
-      function (response) {
+      function(response) {
         if (response.data.Gramrels && response.data.Gramrels.length > 0) {
-          response.data.Gramrels.forEach(function (Gramrel) {
-            Gramrel.Words = Gramrel.Words.filter(function (Word) {
+          response.data.Gramrels.forEach(function(Gramrel) {
+            Gramrel.Words = Gramrel.Words.filter(function(Word) {
               return Word.cm !== ''
             })
             for (let Word of Gramrel.Words) {
@@ -61,7 +73,7 @@ export default {
       {
         json: requestJSON
       },
-      function (response) {
+      function(response) {
         try {
           const data = JSON.parse(response).data
           var result = []
@@ -85,7 +97,7 @@ export default {
               result.push(parallelLine)
             }
           }
-          result = result.sort(function (a, b) {
+          result = result.sort(function(a, b) {
             return a.polyglot.length - b.polyglot.length
           })
           callback(Helper.unique(result))
@@ -108,7 +120,7 @@ export default {
         minthesscore: 0,
         minsim: 0.3
       },
-      function (response) {
+      function(response) {
         let data = {}
         try {
           data = JSON.parse(response).data
@@ -153,19 +165,19 @@ export default {
           kwicrightctx: '100#'
         })
       },
-      function (response) {
+      function(response) {
         const data = JSON.parse(response).data
         let results = []
         for (let Line of data.Lines) {
           try {
-            const ml = Line.Left.map(function (item) {
+            const ml = Line.Left.map(function(item) {
               return item.str || item.strc
             })
               .join('')
               .match(/(.*)<s>([^<s>]*?)$/)
             const left = ml[2]
             const leftContext = ml[1].replace(/<s>/g, '').replace(/<\/s>/g, '')
-            let mr = Line.Right.map(function (item) {
+            let mr = Line.Right.map(function(item) {
               return item.str || item.strc
             })
               .join('')
@@ -197,7 +209,7 @@ export default {
             console.log(err)
           }
         }
-        results = results.sort(function (a, b) {
+        results = results.sort(function(a, b) {
           return a.text.length - b.text.length
         })
         callback(results)
