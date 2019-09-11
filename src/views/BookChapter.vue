@@ -33,7 +33,7 @@
               chapterContent.replace(
                 /href=&quot;([^&quot;]+)&quot;/g,
                 (match, p1) =>
-                  `href=&quot;#/book/chapter/${encodeURIComponent(p1)}&quot;`
+                  `href=&quot;#/${$lang.code}/book/chapter/${encodeURIComponent(p1)}&quot;`
               )
             "
           />
@@ -185,8 +185,10 @@ export default {
       this.$refs.search.text = url
       this.chapterTitle = ''
       this.chapterContent = ''
+      if(this.$lang.options.library && this.$lang.options.library.sources) {
+        await Library.setSources(this.$lang.options.library.sources)
+      }
       let chapter = await Library.getChapter(url)
-      console.log(chapter, 'chapter')
       if (chapter) {
         this.chapterTitle = chapter.title
         this.chapterContent = chapter.content

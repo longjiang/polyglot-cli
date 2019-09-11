@@ -45,7 +45,6 @@ export default {
       wordForms = Helper.unique(
         [this.word.bare.toLowerCase()].concat(wordForms)
       )
-      console.log(wordForms, 'star ... wordForms')
       return wordForms
     },
     saved() {
@@ -56,7 +55,6 @@ export default {
     },
     async saveWordClick() {
       let word = this.word ? await this.allForms() : [this.text.toLowerCase()]
-      console.log('before saving', word)
       this.$store.dispatch('addSavedWord', word)
     },
     removeWordClick() {

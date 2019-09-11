@@ -108,7 +108,6 @@ export default {
         videos: []
       }
       for (let item of $html.find('.pl-video.yt-uix-tile')) {
-        // console.log(script)
         let id = $(item).attr('data-video-id')
         let video = {
           title: $(item).attr('data-title'),
@@ -191,7 +190,6 @@ export default {
           playlists.push(playlist)
         }
       }
-      console.log(playlists, 'playlists')
       callback(playlists)
     })
   }

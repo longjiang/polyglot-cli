@@ -92,7 +92,6 @@ export default {
         form.table = await (await this.$dictionary).stylize(form.table)
       }
       this.tables = forms.groupBy('table')
-      console.log(this.tables)
     }
   },
   mounted() {

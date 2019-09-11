@@ -6,7 +6,7 @@ export default {
   example: 'https://fr.wikipedia.org/wiki/Plecotus_macrobullaris',
   logo: 'https://fr.wikipedia.org/static/images/project-logos/frwiki.png',
   async getChapter(url) {
-    let $chapterHTML = await Helper.scrape2(url)
+    let $chapterHTML = await Helper.scrape2(url, 0)
     $chapterHTML.find('.mw-parser-output > table:first-of-type').remove()
     $chapterHTML.find('.mw-editsection').remove()
     $chapterHTML.find('#headerContainer').remove()
@@ -36,7 +36,7 @@ export default {
         Helper.absoluteURL(url, decodeURIComponent($(a).attr('href')))
       )
     }
-    return {
+    let chapter = {
       title: title,
       content: $chapterHTML.find('.mw-parser-output').html(),
       book: {
@@ -44,6 +44,7 @@ export default {
         chapters: langs
       }
     }
+    return chapter
   },
   async getBook(url) {
     let $bookHTML = await Helper.scrape2(url)

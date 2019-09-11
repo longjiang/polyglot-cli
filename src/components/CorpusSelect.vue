@@ -57,9 +57,6 @@ export default {
       corpname: SketchEngine.corpname(this.$lang.code)
     }
   },
-  mounted() {
-    console.log(this.corpname)
-  },
   watch: {
     corpname() {
       let corpnames = JSON.parse(localStorage.getItem('zthCorpnames')) || {}
