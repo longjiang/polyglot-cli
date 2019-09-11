@@ -33,8 +33,7 @@
           <YouTubeNav class="mb-4" />
           <ol>
             <li>
-              Go to YouTube, search a {{ $lang.name }} word. For example
-              <b>纪录片</b>.
+              Go to YouTube, search a {{ $lang.name }} word.
             </li>
             <li>
               Click on
