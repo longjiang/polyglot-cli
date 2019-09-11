@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" v-observe-visibility="visibilityChanged">
+  <component :is="tag" v-observe-visibility="visibilityChanged" :style="`direction: ${direction}`">
     <slot v-if="!this.annotated"></slot>
     <v-runtime-template
       v-else
@@ -26,7 +26,8 @@ export default {
   data() {
     return {
       annotatedSlots: [],
-      annotated: false
+      annotated: false,
+      direction: this.$lang.direction === 'rtl' ? 'rtl' : 'ltr'
     }
   },
   methods: {
