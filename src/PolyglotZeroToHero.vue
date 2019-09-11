@@ -6,7 +6,7 @@
           <div class="row mb-4">
             <div class="col-sm-12 text-center pt-3">
               <router-link :to="`/${$lang.code}`">
-                <LanguageLogo :language="$lang" style="transform: scale(1.5)"/>
+                <LanguageLogo :language="$lang" style="transform: scale(1.5)" />
               </router-link>
             </div>
           </div>
@@ -78,7 +78,7 @@ export default {
     this.languages = this.$langs
   },
   watch: {
-    $route() {
+    async $route() {
       if (this.lang && this.$route.params.lang !== this.lang) {
         // switching language
         location.reload()
@@ -88,10 +88,11 @@ export default {
         Vue.prototype.$lang = this.languages.find(
           lang => lang.code === this.$route.params.lang
         )
-        this.langLoaded = true
         if (!Vue.prototype.$dictionary) {
           Vue.prototype.$dictionary = FreeDict.load(this.lang)
         }
+        this.$lang.options = (await import(`@/lib/langs/${this.$lang.code}.js`)).default
+        this.langLoaded = true
       }
     }
   }

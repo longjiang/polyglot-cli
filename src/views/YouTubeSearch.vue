@@ -53,7 +53,7 @@ export default {
         videos => {
           this.videos = videos.filter(video => video.cc)
         },
-        true
+        { subs: true, lang: this.$lang.code }
       )
     }
   }

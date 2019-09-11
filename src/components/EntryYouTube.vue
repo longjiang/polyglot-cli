@@ -34,7 +34,10 @@ export default {
           this.videos = videos.filter(video => video.cc)
           console.log('updated to ', this.text)
         },
-        true
+        {
+          subs: true,
+          lang: this.$lang.code
+        }
       )
     }
   },

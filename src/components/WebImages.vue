@@ -101,6 +101,7 @@ export default {
   background-color: #f5f5f5;
   cursor: pointer;
   margin: 0.2rem;
+  max-width: 10rem;
 }
 .image-wall-image:last-child {
   flex: 0;

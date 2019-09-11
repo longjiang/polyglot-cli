@@ -43,7 +43,7 @@
             of
           </div>
           <div>
-            <span style="color: #999">/{{ word.pronunciation }}/</span
+            <span style="color: #999" v-if="word.pronunciation">/{{ word.pronunciation }}/</span
             ><Speak :text="word.bare" :mp3="word.audio" class="ml-1" />
           </div>
           <a :href="`#/dictionary/freedict/${words[0].id}`"

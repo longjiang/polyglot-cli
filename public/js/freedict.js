@@ -158,12 +158,13 @@ const FreeDict = {
             isDef = false
           }
         }
+        let pronunciation = matches ? matches[2] : undefined
         let word = {
           bare: matches ? matches[1] : undefined,
           head: matches
             ? matches[1].replace(/\(.*\)\/ /, '').toLowerCase()
             : undefined,
-          pronunciation: matches ? matches[2] : undefined,
+          pronunciation: ['fi', 'lt', 'cy'].includes(this.lang)? undefined : pronunciation,
           definitions: definitions,
           pos: matches2 && matches2.length > 1 ? matches2[1] : undefined
         }

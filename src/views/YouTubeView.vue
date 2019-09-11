@@ -9,9 +9,9 @@
       <div class="row">
         <div class="col-sm-12">
           <h3 :key="title">
-            <Annotate
-              ><span>{{ title }}</span></Annotate
-            >
+            <Annotate>
+              <span>{{ title }}</span>
+            </Annotate>
           </h3>
           <hr class="mt-0" />
           <YouTubeChannelCard v-if="channel" :channel="channel" class="mb-5" />
@@ -34,25 +34,23 @@
             :parallellines="this.english"
             v-else-if="!loading && hasSubtitles"
           />
-          <div
-            v-else-if="!loading && !hasSubtitles"
-            class="jumbotron pt-4 pb-3 bg-light"
-          >
-            <h6>
-              Sorry, this YouTube video does not have {{ $lang.name }} closed captions.
-            </h6>
+          <div v-else-if="!loading && !hasSubtitles" class="jumbotron pt-4 pb-3 bg-light">
+            <h6>Sorry, this YouTube video does not have {{ $lang.name }} closed captions.</h6>
             <p>
               You can tell if a YouTube video has closed captions by clicking on
               the
               <b>CC</b> icon in the player bar, and click on the
               <font-awesome-icon icon="cog" />next to it. If you can find the
-              subtitle with the language <b>{{ $lang.name }}</b> then the video has {{ $lang.name }}
+              subtitle with the language
+              <b>{{ $lang.name }}</b>
+              then the video has {{ $lang.name }}
               subtitles.
             </p>
             <p>
               To look for videos with t{{ $lang.name }} subtitles, search with a {{ $lang.name }}
               keyword, and click
-              <b>Filter</b>, then <b>CC</b>.
+              <b>Filter</b>, then
+              <b>CC</b>.
             </p>
           </div>
         </div>
@@ -67,8 +65,6 @@ import SyncedTranscript from '@/components/SyncedTranscript'
 import YouTubeNav from '@/components/YouTubeNav'
 import YouTubeChannelCard from '@/components/YouTubeChannelCard'
 import Helper from '@/lib/helper'
-
-const LANGUAGE_OPTIONS = [this.$lang.code]
 
 export default {
   components: {
@@ -125,7 +121,9 @@ export default {
       this.loading = true
       let chosenLanguage
       const promises = []
-      for (let language of LANGUAGE_OPTIONS) {
+      for (let language of [this.$lang.code].concat(
+        this.$lang.options.locales
+      )) {
         promises.push(
           Helper.scrape(
             `https://www.youtube.com/api/timedtext?v=${this.args}&lang=${language}&fmt=srv3`,

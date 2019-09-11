@@ -47,14 +47,15 @@ export default {
       callback(videoIds)
     })
   },
-  search(text, callback, subs = false, cacheLife = -1) {
-    let subsQueryVar = subs ? '&sp=EgIoAQ%253D%253D' : ''
+  search(text, callback, options) {
+    options = Object.assign({ lang: 'en', subs: false, cacheLife: -1 }, options)
+    let subsQueryVar = options.subs ? '&sp=EgIoAQ%253D%253D' : ''
     Helper.scrape2(
       `https://www.youtube.com/results?search_query=${text.replace(
         / /g,
         '+'
-      )}+lang%3Afr${subsQueryVar}`,
-      cacheLife
+      )}+lang%3A${options.lang}${subsQueryVar}`,
+      options.cacheLife
     ).then($html => {
       let videos = []
       if ($html.find('.yt-lockup-content').length > 0) {
@@ -83,7 +84,7 @@ export default {
               thumbnail: this.thumbnail(id),
               url: 'https://www.youtube.com/watch?v=' + id
             }
-            if (badge && badge.innerText === 'CC') {
+            if (badge && ['CC', 'Untertitel'].includes(badge.innerText)) {
               youtube.cc = true
             }
             videos.push(youtube)
