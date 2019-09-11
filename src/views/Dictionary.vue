@@ -162,7 +162,7 @@ export default {
     },
     async random() {
       let randomId = (await (await this.$dictionary).random()).id
-      location.hash = `#/dictionary/freedict/${randomId}`
+      location.hash = `#/${this.$lang.code}/dictionary/freedict/${randomId}`
     }
   },
   watch: {
