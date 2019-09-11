@@ -230,6 +230,13 @@ const FreeDict = {
     }
     return forms
   },
+  lookupByDef(text, limit = 30) {
+    text = text.toLowerCase()
+    let words = this.words
+      .filter(word => word.definitions.join(', ').includes(text))
+      .slice(0, limit)
+    return words
+  },
   lookupFuzzy(text, limit = 30) {
     text = text.toLowerCase()
     let words = this.words

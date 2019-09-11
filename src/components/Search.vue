@@ -42,8 +42,8 @@
           </span>
           <span
             class="suggestion-english"
-            v-if="suggestion.english"
-            v-html="Helper.highlight(suggestion.english, text)"
+            v-if="suggestion.definitions"
+            v-html="Helper.highlight(suggestion.definitions.join(', '), text)"
           ></span>
         </span>
       </a>
@@ -122,9 +122,19 @@ export default {
     },
     async text() {
       if (this.type === 'dictionary') {
-        this.suggestions = await (await this.$dictionary).lookupFuzzy(
+        this.suggestions = []
+        this.suggestions = this.suggestions.concat(await (await this.$dictionary).lookupByDef(
           this.text,
-          30
+          10
+        ))
+        this.suggestions = this.suggestions.concat(await (await this.$dictionary).lookupFuzzy(
+          this.text,
+          10
+        ))
+        this.suggestions = this.suggestions.sort((a, b) => 
+          b.bare.length - a.bare.length
+        ).sort((a, b) => 
+          a.bare.startsWith(this.text) ? -1 : 0
         )
       }
     }
@@ -183,7 +193,7 @@ a.suggestion {
 
 .suggestion-english {
   font-style: italic;
-  color: #aaa;
+  color: #777;
 }
 
 .search-wrapper {
@@ -197,6 +207,5 @@ a.suggestion {
 
 .suggestion-english >>> .highlight {
   font-weight: bold;
-  color: #999;
 }
 </style>
