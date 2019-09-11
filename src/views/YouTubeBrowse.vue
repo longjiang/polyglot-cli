@@ -38,7 +38,7 @@
             <li>
               Click on
               <b>Filter</b>, and choose
-              <b>Subtitls/CC.</b>
+              <b>Subtitles/CC.</b>
             </li>
             <li>
               Open a video that interests you.
