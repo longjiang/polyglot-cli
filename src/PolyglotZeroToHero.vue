@@ -4,19 +4,14 @@
       <div class="container-fluid bg-dark pt-4 pl-0 pr-0">
         <div class="container">
           <div class="row mb-4">
-            <div class="col-sm-12">
+            <div class="col-sm-12 text-center pt-3">
               <router-link :to="`/${$lang.code}`">
-                <img
-                  :src="`${Config.server}img/logo-${$lang.code}-zth-light.png`"
-                  :alt="`${$lang.name} Zero to Hero`"
-                  v-if="lang.logo"
-                  class="logo"
-                />
+                <LanguageLogo :language="$lang" style="transform: scale(1.5)"/>
               </router-link>
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 text-center">
               <Nav />
             </div>
           </div>
@@ -34,7 +29,7 @@
             <div class="col-sm-12">
               <div class="zerotohero">
                 <LanguageLogo
-                  v-for="language in languages.filter(language => language.url).sort((a,b) => b.name > a.name ? -1 : 0)"
+                  v-for="language in languages.filter(language => language.url && language.published === true).sort((a,b) => b.name > a.name ? -1 : 0)"
                   :language="language"
                 />
               </div>

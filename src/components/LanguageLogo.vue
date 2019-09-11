@@ -2,7 +2,7 @@
   <a
     :href="language.url.replace('https://polyglot.zerotohero.ca/', '/')"
     target="_blank"
-    class="mr-4 mb-4 d-inline-block zerotohero-item"
+    class="mr-4 mb-4 d-inline-block zerotohero-item link-unstyled"
   >
     <img
       :src="
@@ -13,12 +13,12 @@
       class="logo-image"
     />
     <div v-else class="logo-constructed">
-      <div class="logo-circle">
+      <div class="logo-circle" :style="`background-image:url(${Config.server}img/logo-square/${language.code}.png)`">
         <div
           class="logo-speech-bubble"
           :style="`background-image: url(${Config.server}img/speech-light.png)`"
         >
-          <b>{{ language.name.slice(0,1).toUpperCase()}}{{ language.name.slice(1,2) }}</b>
+          <b>{{ language.code.slice(0,1).toUpperCase()}}{{ language.code.slice(1,2) }}</b>
         </div>
       </div>
       <div class="logo-text text-white">
@@ -58,9 +58,11 @@ export default {
   border-radius: 100%;
   position: relative;
   margin-right: 0.7rem;
+  background-size: cover;
 }
 .logo-text {
   font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  text-align: left;
   margin-bottom: -0.4rem;
 }
 .logo-speech-bubble {

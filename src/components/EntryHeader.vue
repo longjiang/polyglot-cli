@@ -11,7 +11,7 @@
           </div>
         </div>
         <div>
-          <a :href="`#/dictionary/openpolyglot/${entry.bare}`">
+          <a :href="`#/dictionary/freedict/${entry.bare}`">
             <span
               class="entry-word"
               :data-level="entry.level || 'outside'"
