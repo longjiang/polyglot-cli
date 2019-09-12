@@ -22,7 +22,7 @@
             <input
               type="radio"
               :value="corpus.corpname.replace('preloaded/', '')"
-              :checked="corpus.corpname.replace('preloaded/', '') === SketchEngine.corpname(this.$lang.code)"
+              :checked="corpus.corpname.replace('preloaded/', '') === SketchEngine.corpname($lang.code)"
               v-model="corpname"
             />
           </td>
