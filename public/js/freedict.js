@@ -164,7 +164,7 @@ const FreeDict = {
           head: matches
             ? matches[1].replace(/\(.*\)\/ /, '').toLowerCase()
             : undefined,
-          pronunciation: ['fi', 'lt', 'cy'].includes(this.lang)? undefined : pronunciation,
+          pronunciation: ['fi', 'lt', 'cy', 'ku'].includes(this.lang)? undefined : pronunciation,
           definitions: definitions,
           pos: matches2 && matches2.length > 1 ? matches2[1] : undefined
         }
