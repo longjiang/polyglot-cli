@@ -3,9 +3,13 @@ import Helper from '@/lib/helper'
 export default {
   host: /.+\.wikipedia\.org/,
   name: 'Wikipedia',
-  example: 'https://fr.wikipedia.org/wiki/Plecotus_macrobullaris',
-  logo: 'https://fr.wikipedia.org/static/images/project-logos/frwiki.png',
-  async getChapter(url) {
+  example(lang) {
+    return `https://${lang}.wikipedia.org/wiki/(Article Title)`
+  },
+  logo(lang) {
+    return `https://${lang}.wikipedia.org/static/images/project-logos/${lang}wiki.png`
+  },
+  async getChapter(url, lang) {
     let $chapterHTML = await Helper.scrape2(url, 0)
     $chapterHTML.find('.mw-parser-output > table:first-of-type').remove()
     $chapterHTML.find('.mw-editsection').remove()
@@ -46,7 +50,7 @@ export default {
     }
     return chapter
   },
-  async getBook(url) {
+  async getBook(url, lang) {
     let $bookHTML = await Helper.scrape2(url)
     let chapters = []
     for (let a of $bookHTML.find('#mw-pages li a')) {
@@ -61,17 +65,20 @@ export default {
       chapters
     }
   },
-  async getBooklist(url) {
+  async getBooklist(url, lang) {
     let $html = await Helper.scrape2(url)
     let list = []
     for (let a of $html.find('#mw-content-text a')) {
       list.push({
-        url: 'https://ru.wikipedia.org' + $(a).attr('href'),
+        url: `https://${lang}.wikipedia.org${$(a).attr('href')}`,
         title: $(a)
           .text()
           .trim()
       })
     }
     return list
+  },
+  booklists(lang) {
+    return []
   }
 }

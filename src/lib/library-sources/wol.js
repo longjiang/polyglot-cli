@@ -2,11 +2,15 @@ import Helper from '@/lib/helper'
 
 export default {
   host: 'wol.jw.org',
-  name: 'Wachtturm ONLINE-BIBLIOTHEK',
-  logo:
-    'https://assetsnffrgf-a.akamaihd.net/assets/m/802013134/univ/art/802013134_univ_cnt_8_xl.jpg',
-  example: 'https://wol.jw.org/de/wol/d/r10/lp-x/2013646',
-  async getChapter(url) {
+  name: 'WOL',
+  example(lang) {
+    lang = lang.replace('zh', 'cmn-Hans')
+    return `https://wol.jw.org/${lang}/wol/d/r10/lp-x/2013646`
+  },
+  logo(lang) {
+    return 'https://assetsnffrgf-a.akamaihd.net/assets/m/802013134/univ/art/802013134_univ_cnt_8_xl.jpg'
+  },
+  async getChapter(url, lang) {
     let $chapterHTML = await Helper.scrape2(url)
     let title = $chapterHTML
       .find('header h1')
@@ -31,7 +35,7 @@ export default {
     }
     return chapter
   },
-  async getBook(url) {
+  async getBook(url, lang) {
     let $bookHTML = await Helper.scrape2(url)
     let thumbnail = $bookHTML
       .find('ul.directory li.row:first-child img')
@@ -60,7 +64,7 @@ export default {
     }
     return book
   },
-  async getBooklist(url) {
+  async getBooklist(url, lang) {
     let $html = await Helper.scrape2(url)
     let list = []
     for (let li of $html.find('ul.directory li.row')) {
@@ -82,5 +86,8 @@ export default {
     }
 
     return list
+  },
+  booklists(lang) {
+    return []
   }
 }

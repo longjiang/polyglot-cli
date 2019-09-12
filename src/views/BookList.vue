@@ -69,7 +69,7 @@ export default {
       let url = decodeURIComponent(this.args)
       this.$refs.search.text = url
       this.booklist = []
-      this.booklist = await Library.getBooklist(url)
+      this.booklist = await Library.getBooklist(url, this.$lang.code)
     }
   },
   async mounted() {

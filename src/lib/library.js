@@ -4,19 +4,20 @@ import WOL from '@/lib/library-sources/wol'
 
 export default {
   universalSources: [Wikipedia, Wikisource, WOL],
-  sources: [],
-  async setSources(sources) {
+  langSources: [],
+  async setLangSources(sources) {
     for (let source of sources) {
-      this.sources.push(
+      this.langSources.push(
         (await import(`@/lib/library-sources/${source}.js`)).default
       )
     }
   },
+  sources() {
+    return this.langSources.concat(this.universalSources)
+  },
   source(url) {
     const host = url.replace(/.*\/\/([^/]*).*/, '$1')
-    const source = this.sources
-      .concat(this.universalSources)
-      .find(source => host.match(source.host))
+    const source = this.sources().find(source => host.match(source.host))
     return source
   },
   getBook(url) {
@@ -25,7 +26,8 @@ export default {
   getChapter(url) {
     return this.source(url) ? this.source(url).getChapter(url) : false
   },
-  getBooklist(url) {
-    return this.source(url) ? this.source(url).getBooklist(url) : false
+  getBooklist(url, lang) {
+    
+    return this.source(url) ? this.source(url).getBooklist(url, lang) : false
   }
 }

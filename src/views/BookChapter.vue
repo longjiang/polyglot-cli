@@ -186,7 +186,7 @@ export default {
       this.chapterTitle = ''
       this.chapterContent = ''
       if(this.$lang.options.library && this.$lang.options.library.sources) {
-        await Library.setSources(this.$lang.options.library.sources)
+        await Library.setLangSources(this.$lang.options.library.sources)
       }
       let chapter = await Library.getChapter(url)
       if (chapter) {

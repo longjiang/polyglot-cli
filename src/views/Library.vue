@@ -7,29 +7,31 @@
           This is where you can enjoy reading a variety of {{ $lang.name }} books with the
           help of hover dictionary and the ability to save words.
         </p>
+        <div v-for="source in sources">
+          <template v-if="source.booklists($lang.code).length > 0">
+            <hr class="mb-5" />
+            <h3 class="text-center mt-5" style="margin-bottom:4rem">Books from {{ source.name }}</h3>
 
-        <hr class="mb-5" />
-
-        <h3 class="text-center mt-5" style="margin-bottom:4rem">Browse Authors on Wikisource</h3>
-
-        <ul class="list-unstyled p-0 mb-5 booklists">
-          <li v-for="booklist in booklists" class="text-center mb-5">
-            <a
-              class="link-unstyled"
-              :href="`#/${$lang.code}/book/list/${encodeURIComponent(booklist.url)}`"
-            >
-              <img
-                :src="`/img/books-${Math.floor(Math.random() * 10)}.png`"
-                class="shadowed book-thumb mb-4"
-              />
-              <h5 class="mt-3">
-                <Annotate tag="b"
-                  ><span>{{ booklist.title }}</span></Annotate
+            <ul class="list-unstyled p-0 mb-5 booklists">
+              <li v-for="booklist in source.booklists($lang.code)" class="text-center mb-5">
+                <a
+                  class="link-unstyled"
+                  :href="`#/${$lang.code}/book/list/${encodeURIComponent(booklist.url)}`"
                 >
-              </h5>
-            </a>
-          </li>
-        </ul>
+                  <img
+                    :src="`/img/books-${Math.floor(Math.random() * 10)}.png`"
+                    class="shadowed book-thumb mb-4"
+                  />
+                  <h5 class="mt-3">
+                    <Annotate tag="b">
+                      <span>{{ booklist.title }}</span>
+                    </Annotate>
+                  </h5>
+                </a>
+              </li>
+            </ul>
+          </template>
+        </div>
 
         <hr class="mb-5" />
 
@@ -57,9 +59,9 @@
             and enjoy reading!
           </p>
           <ul>
-            <li v-for="source in Library.sources">
+            <li v-for="source in sources">
               {{ source.name }}, example URL:
-              <code v-html="`${source.example}`"></code>
+              <code v-html="`${source.example($lang.code)}`"></code>
             </li>
           </ul>
         </div>
@@ -85,18 +87,14 @@ export default {
     return {
       Library,
       location,
-      booklists: [
-      ]
+      sources: []
     }
   },
-  mounted() {
-    for(let letter of ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']) {
-      this.booklists.push({
-        title: letter,
-        url: 'https://fr.wikisource.org/wiki/Cat%C3%A9gorie:Auteurs-' + letter
-      })
+  async mounted() {
+    if (this.$lang.options.library && this.$lang.options.library.sources) {
+      await Library.setLangSources(this.$lang.options.library.sources)
     }
-    this.booklists
+    this.sources = Library.sources()
   }
 }
 </script>
