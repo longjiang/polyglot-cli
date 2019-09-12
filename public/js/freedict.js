@@ -198,7 +198,7 @@ const FreeDict = {
   load(lang) {
     console.log('Loading FreeDict...')
     this.lang = lang
-    this.file = `http://hsk-server.local:8888/data/freedict/${this.dictionaries[this.lang].filename}.dict.txt`
+    this.file = `https://server.chinesezerotohero.com/data/freedict/${this.dictionaries[this.lang].filename}.dict.txt`
     return new Promise(async resolve => {
       let promises = [this.loadWords()]
       await Promise.all(promises)
