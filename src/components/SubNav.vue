@@ -39,11 +39,11 @@
           $route.name === 'reader'
       "
     >
-      <router-link class="secondary-menu-item" :to="{ name: 'library' }">
-        <font-awesome-icon icon="book-open" />Library
-      </router-link>
       <router-link class="secondary-menu-item" :to="{ name: 'reader' }">
         <font-awesome-icon icon="file-alt" />Text Reader
+      </router-link>
+      <router-link class="secondary-menu-item" :to="{ name: 'library' }">
+        <font-awesome-icon icon="book-open" />Library
       </router-link>
     </nav>
   </div>

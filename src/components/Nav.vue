@@ -27,7 +27,7 @@
             $route.name === 'library' ||
             $route.name === 'reader')
       }"
-      :to="{ name: 'library' }"
+      :to="{ name: 'reader' }"
       :title="`Improve your ${lang ? lang.name : ''} through reading`"
     >
       <font-awesome-icon icon="book-open" />Reading

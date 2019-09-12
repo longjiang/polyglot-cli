@@ -5,7 +5,7 @@ export default {
   name: 'WOL',
   example(lang) {
     lang = lang.replace('zh', 'cmn-Hans')
-    return `https://wol.jw.org/${lang}/wol/d/r10/lp-x/2013646`
+    return `https://wol.jw.org/${lang}/(article path)`
   },
   logo(lang) {
     return 'https://assetsnffrgf-a.akamaihd.net/assets/m/802013134/univ/art/802013134_univ_cnt_8_xl.jpg'
