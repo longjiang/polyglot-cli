@@ -3,11 +3,7 @@
     <div class="widget-title">Sentences with “{{ word.bare }}”</div>
     <div class="jumbotron-fluid bg-light p-4">
       <div v-if="examples && examples.length > 0">
-        <ul
-          v-if="examples"
-          class="collapsed list-unstyled"
-          data-collapse-target
-        >
+        <ul v-if="examples" class="collapsed list-unstyled" data-collapse-target>
           <li v-for="example in examples">
             <Annotate tag="div" class="pt-2 pb-2">
               <span
@@ -18,20 +14,18 @@
                     level || 'outside'
                   )
                 "
-            /></Annotate>
+              />
+            </Annotate>
             <div v-if="example.english">{{ example.english }}</div>
             <hr />
           </li>
         </ul>
-        <ShowMoreButton
-          :length="examples.length"
-          :min="4"
-          :data-bg-level="level"
-        />
+        <ShowMoreButton :length="examples.length" :min="4" :data-bg-level="level" />
       </div>
       <div v-if="examples && examples.length === 0">
         Sorry, we could not find any “{{ word.bare }}” examples. You can set a
-        different corpus in <a :href="`#/${$lang.code}/settings`">Settings</a>.
+        different corpus in
+        <a :href="`#/${$lang.code}/settings`">Settings</a>.
       </div>
       <hr v-if="examples && examples.length === 0" />
       <div class="mt-4">
@@ -50,11 +44,7 @@
           "
           target="_blank"
         >
-          <img
-            src="img/logo-sketch-engine.png"
-            alt="Sketch Engine"
-            class="ml-2 logo-small"
-          />
+          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
         </a>
       </div>
       <hr />
@@ -66,11 +56,7 @@
           "
           target="_blank"
         >
-          <img
-            src="/img/logo-tatoeba.png"
-            alt="Tatoeba"
-            class="logo-small mr-3"
-          />
+          <img src="/img/logo-tatoeba.png" alt="Tatoeba" class="logo-small mr-3" />
           Tatoeba
         </a>
       </div>
@@ -111,10 +97,11 @@ export default {
         form => form.form.replace(/'/g, '')
       )
       this.words = [this.word.bare].concat(forms)
-      SketchEngine.concordance(this.word.bare, response => {
-        this.examples = response
-        this.concordanceKey += 1
+      this.examples = await SketchEngine.concordance({
+        term: this.word.bare,
+        lang: this.$lang.code
       })
+      this.concordanceKey += 1
     }
   },
   async mounted() {

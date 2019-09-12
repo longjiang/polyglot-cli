@@ -24,12 +24,12 @@
           ></Collocation>
         </div>
       </div>
-      <div
-        v-if="sketch !== undefined && (sketch === false || !sketch.Gramrels)"
-      >
+      <div v-if="sketch !== undefined && (sketch === false || !sketch.Gramrels)">
         Sorry, we could not find any “{{ word.bare }}” collocations in this corpus
         (dataset). You can set a different corpus in
-        <a :href="`#/${$lang.code}/settings`">Settings</a>.
+        <a
+          :href="`#/${$lang.code}/settings`"
+        >Settings</a>.
       </div>
       <hr />
       <div class="mt-2">
@@ -42,11 +42,7 @@
             )}&tab=basic&lemma=${word.bare}&showresults=1`
           "
         >
-          <img
-            src="img/logo-sketch-engine.png"
-            alt="Sketch Engine"
-            class="ml-2 logo-small"
-          />
+          <img src="img/logo-sketch-engine.png" alt="Sketch Engine" class="ml-2 logo-small" />
         </a>
       </div>
     </div>
@@ -70,9 +66,10 @@ export default {
     Collocation
   },
   methods: {
-    update() {
-      SketchEngine.wsketch(this.word.bare, response => {
-        this.sketch = response
+    async update() {
+      this.sketch = await SketchEngine.wsketch({
+        term: this.word.bare,
+        lang: this.$lang.code
       })
       this.colDesc = SketchEngine.collocationDescription(this.word.bare)
     },

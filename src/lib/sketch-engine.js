@@ -13,9 +13,9 @@ export default {
       )
       let defaultCorpusName = defaultCorpus
         ? defaultCorpus.corpname
-        : this.corpora.filter(
-          corpus => corpus.language_id === lang
-        ).sort((a,b) => b.sizes.wordcount - a.sizes.wordcount)[0].corpname
+        : this.corpora
+          .filter(corpus => corpus.language_id === lang)
+          .sort((a, b) => b.sizes.wordcount - a.sizes.wordcount)[0].corpname
       return corpnames[lang] || defaultCorpusName
     }
   },
@@ -39,81 +39,89 @@ export default {
       'objects of "%w"': `objects of "${word}"`
     }
   },
-  wsketch(term, callback) {
-    $.getJSON(
-      `${
-        Config.sketchEngineProxy
-      }?https://api.sketchengine.eu/bonito/run.cgi/wsketch?corpname=preloaded/${this.corpname()}&lemma=${term}`,
-      function(response) {
-        if (response.data.Gramrels && response.data.Gramrels.length > 0) {
-          response.data.Gramrels.forEach(function(Gramrel) {
-            Gramrel.Words = Gramrel.Words.filter(function(Word) {
-              return Word.cm !== ''
+  wsketch(options) {
+    return new Promise(resolve => {
+      $.getJSON(
+        `${
+          Config.sketchEngineProxy
+        }?https://api.sketchengine.eu/bonito/run.cgi/wsketch?corpname=${this.corpname(
+          options.lang
+        )}&lemma=${options.term}`,
+        function(response) {
+          if (response.data.Gramrels && response.data.Gramrels.length > 0) {
+            response.data.Gramrels.forEach(function(Gramrel) {
+              Gramrel.Words = Gramrel.Words.filter(function(Word) {
+                return Word.cm !== ''
+              })
+              for (let Word of Gramrel.Words) {
+                if (Word.cm) {
+                  Word.cm = Word.cm.replace(/-\w( ?)/gi, '')
+                }
+              }
             })
-            for (let Word of Gramrel.Words) {
-              if (Word.cm) {
-                Word.cm = Word.cm.replace(/-\w( ?)/gi, '')
-              }
-            }
-          })
-        }
-        callback(response.data)
-      }
-    )
-  },
-  concordance(term, callback) {
-    let parallel = this.corpname().startsWith('opus')
-    let requestJSON = parallel
-      ? `{"attrs":"word","structs":"s,g","refs":"=doc.subcorpus","ctxattrs":"word","viewmode":"align","usesubcorp":"","freqml":[{"attr":"word","ctx":"0","base":"kwic"}],"fromp":1,"pagesize":1000,"concordance_query":[{"queryselector":"iqueryrow","sel_aligned":["opus2_en"],"cql":"","iquery":"${term}","queryselector_opus2_en":"iqueryrow","iquery_opus2_en":"","pcq_pos_neg_opus2_en":"pos","filter_nonempty_opus2_en":"on"}]}`
-      : `{"lpos":"","wpos":"","default_attr":"word","attrs":"word","refs":"=doc.website","ctxattrs":"word","attr_allpos":"all","usesubcorp":"","viewmode":"kwic","cup_hl":"q","cup_err":"true","cup_corr":"","cup_err_code":"true","structs":"s,g","gdex_enabled":0,"fromp":1,"pagesize":50,"concordance_query":[{"queryselector":"iqueryrow","iquery":"${term}"}],"kwicleftctx":"100#","kwicrightctx":"100#"}`
-    $.post(
-      `${
-        Config.sketchEngineProxy
-      }?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=preloaded/${this.corpname()}`,
-      {
-        json: requestJSON
-      },
-      function(response) {
-        try {
-          const data = JSON.parse(response).data
-          var result = []
-          for (let Line of data.Lines.slice(0, 500)) {
-            let line =
-              Line.Left.map(item => (item ? item.str : '')).join(' ') +
-              ' ' +
-              Line.Kwic[0].str +
-              ' ' +
-              Line.Right.map(item => (item ? item.str : '')).join(' ')
-            line = line.replace(/ ([,.])/g, '$1')
-            if (line.length > term.length + 4) {
-              let parallelLine = {
-                polyglot: line
-              }
-              if (Line.Align && Line.Align[0].Kwic) {
-                parallelLine.english = Line.Align[0].Kwic.map(
-                  kwic => kwic.str
-                ).reduce((english, kwic) => english + ' ' + kwic)
-              }
-              result.push(parallelLine)
-            }
           }
-          result = result.sort(function(a, b) {
-            return a.polyglot.length - b.polyglot.length
-          })
-          callback(Helper.unique(result))
-        } catch (err) {
-          throw 'Concordance did not return any data.'
+          resolve(response.data)
         }
-      }
-    )
+      )
+    })
   },
-  thesaurus(term, callback) {
+  concordance(options) {
+    let parallel = this.corpname(options.lang).startsWith('opus')
+    let requestJSON = parallel
+      ? `{"attrs":"word","structs":"s,g","refs":"=doc.subcorpus","ctxattrs":"word","viewmode":"align","usesubcorp":"","freqml":[{"attr":"word","ctx":"0","base":"kwic"}],"fromp":1,"pagesize":1000,"concordance_query":[{"queryselector":"iqueryrow","sel_aligned":["opus2_en"],"cql":"","iquery":"${options.term}","queryselector_opus2_en":"iqueryrow","iquery_opus2_en":"","pcq_pos_neg_opus2_en":"pos","filter_nonempty_opus2_en":"on"}]}`
+      : `{"lpos":"","wpos":"","default_attr":"word","attrs":"word","refs":"=doc.website","ctxattrs":"word","attr_allpos":"all","usesubcorp":"","viewmode":"kwic","cup_hl":"q","cup_err":"true","cup_corr":"","cup_err_code":"true","structs":"s,g","gdex_enabled":0,"fromp":1,"pagesize":50,"concordance_query":[{"queryselector":"iqueryrow","iquery":"${options.term}"}],"kwicleftctx":"100#","kwicrightctx":"100#"}`
+    return new Promise(resolve => {
+      $.post(
+        `${
+          Config.sketchEngineProxy
+        }?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=${this.corpname(
+          options.lang
+        )}`,
+        {
+          json: requestJSON
+        },
+        function(response) {
+          try {
+            const data = JSON.parse(response).data
+            var result = []
+            for (let Line of data.Lines.slice(0, 500)) {
+              let line =
+                Line.Left.map(item => (item ? item.str : '')).join(' ') +
+                ' ' +
+                Line.Kwic[0].str +
+                ' ' +
+                Line.Right.map(item => (item ? item.str : '')).join(' ')
+              line = line.replace(/ ([,.])/g, '$1')
+              if (line.length > options.term.length + 4) {
+                let parallelLine = {
+                  polyglot: line
+                }
+                if (Line.Align && Line.Align[0].Kwic) {
+                  parallelLine.english = Line.Align[0].Kwic.map(
+                    kwic => kwic.str
+                  ).reduce((english, kwic) => english + ' ' + kwic)
+                }
+                result.push(parallelLine)
+              }
+            }
+            result = result.sort(function(a, b) {
+              return a.polyglot.length - b.polyglot.length
+            })
+            resolve(Helper.unique(result))
+          } catch (err) {
+            throw 'Concordance did not return any data.'
+          }
+        }
+      )
+    })
+  },
+  thesaurus(options, callback) {
     $.post(
       `${
         Config.sketchEngineProxy
-      }?https://app.sketchengine.eu/bonito/run.cgi/thes?corpname=preloaded/${this.corpname()}`,
+      }?https://app.sketchengine.eu/bonito/run.cgi/thes?corpname=${this.corpname(options.lang)}`,
       {
-        lemma: term,
+        lemma: options.term,
         lpos: '',
         clusteritems: 0,
         maxthesitems: 100,
@@ -131,7 +139,7 @@ export default {
       }
     )
   },
-  mistakes(term, callback) {
+  mistakes(options, callback) {
     $.post(
       `${Config.sketchEngineProxy}?https://app.sketchengine.eu/bonito/run.cgi/concordance?corpname=preloaded/guangwai`,
       {
@@ -156,7 +164,7 @@ export default {
           concordance_query: [
             {
               queryselector: 'iqueryrow',
-              iquery: term,
+              iquery: options.term,
               'sca_err.level': ['col', 'form', 'mean', 'orth', 'punct'],
               'sca_err.type': ['anom', 'incl', 'omit', 'wo']
             }
@@ -197,7 +205,7 @@ export default {
               right: right,
               leftContext: leftContext,
               rightContext: rightContext,
-              text: left + term + right,
+              text: left + options.term + right,
               country: Helper.country(country),
               refs: refs,
               proficiency: SketchEngine.proficiency[refs['=u.proficiency']],
