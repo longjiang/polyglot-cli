@@ -5,46 +5,52 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    savedWords:
-      JSON.parse(localStorage.getItem('savedFreeDictFraEngWords')) || []
+    savedWords: JSON.parse(localStorage.getItem('zthSavedWords')) || {}
   },
   mutations: {
-    ADD_SAVED_WORD(state, wordForms) {
+    ADD_SAVED_WORD(state, options) {
+      console.log('adding saved word', options.wordForms, options.lang)
+      if (!state.savedWords[options.lang]) {
+        state.savedWords[options.lang] = []
+      }
       if (
-        !state.savedWords.find(item => {
+        !state.savedWords[options.lang].find(item => {
           if (item && Array.isArray(item)) {
-            return item.join(',') === wordForms.join(',')
+            return item.join(',') === options.wordForms.join(',')
           }
         })
       ) {
-        state.savedWords.push(wordForms)
-        localStorage.setItem(
-          'savedFreeDictFraEngWords',
-          JSON.stringify(state.savedWords)
-        )
+        state.savedWords[options.lang].push(options.wordForms)
+        localStorage.setItem('zthSavedWords', JSON.stringify(state.savedWords))
       }
     },
-    REMOVE_SAVED_WORD(state, wordForm) {
-      const keepers = state.savedWords.filter(item => !item.includes(wordForm))
-      state.savedWords = keepers
-      localStorage.setItem('savedFreeDictFraEngWords', JSON.stringify(keepers))
+    REMOVE_SAVED_WORD(state, options) {
+      if (state.savedWords[options.lang]) {
+        const keepers = state.savedWords[options.lang].filter(
+          item => !item.includes(options.wordForm)
+        )
+        state.savedWords[options.lang] = keepers
+        localStorage.setItem('zthSavedWords', JSON.stringify(state.savedWords))
+      }
     },
-    REMOVE_ALL_SAVED_WORDS(state) {
-      localStorage.removeItem('savedFreeDictFraEngWords')
-      state.savedWords = []
+    REMOVE_ALL_SAVED_WORDS(state, options) {
+      if (state.savedWords[options.lang]) {
+        state.savedWords[options.lang] = []
+        localStorage.setItem('zthSavedWords', JSON.stringify(state.savedWords))
+      }
     }
   },
   actions: {
-    addSavedWord({ commit, dispatch }, wordForms) {
-      commit('ADD_SAVED_WORD', wordForms)
+    addSavedWord({ commit, dispatch }, options) {
+      commit('ADD_SAVED_WORD', options)
       dispatch('updateSavedWordsDisplay')
     },
-    removeSavedWord({ commit, dispatch }, wordForm) {
-      commit('REMOVE_SAVED_WORD', wordForm)
+    removeSavedWord({ commit, dispatch }, options) {
+      commit('REMOVE_SAVED_WORD', options)
       dispatch('updateSavedWordsDisplay')
     },
-    removeAllSavedWords({ commit, dispatch }) {
-      commit('REMOVE_ALL_SAVED_WORDS')
+    removeAllSavedWords({ commit, dispatch }, options) {
+      commit('REMOVE_ALL_SAVED_WORDS', options)
       dispatch('updateSavedWordsDisplay')
     },
     blinkedSavedWordsButton() {
@@ -58,14 +64,20 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    hasSavedWord: state => text => {
-      let yes = state.savedWords.find(
-        item => Array.isArray(item) && item.includes(text)
-      )
-      return yes
+    hasSavedWord: state => options => {
+      if (state.savedWords[options.lang]) {
+        let yes = state.savedWords[options.lang].find(
+          item => Array.isArray(item) && item.includes(options.text)
+        )
+        return yes
+      }
     },
-    savedWordCount: state => () => {
-      return state.savedWords.length
+    savedWordCount: state => options => {
+      if (state.savedWords[options.lang]) {
+        return state.savedWords[options.lang].length
+      } else {
+        return 0
+      }
     }
   }
 })

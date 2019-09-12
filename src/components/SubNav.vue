@@ -22,10 +22,7 @@
       </router-link>
     </nav>
 
-    <nav
-      class="secondary-menu text-center"
-      v-if="$route.name && $route.name.startsWith('youtube')"
-    >
+    <nav class="secondary-menu text-center" v-if="$route.name && $route.name.startsWith('youtube')">
       <router-link class="secondary-menu-item" :to="{ name: 'youtube-browse' }">
         <font-awesome-icon :icon="['fab', 'youtube']" />YouTube Transcript
       </router-link>
@@ -53,7 +50,7 @@
 export default {
   methods: {
     savedWordsCount() {
-      let count = this.$store.getters.savedWordCount()
+      let count = this.$store.getters.savedWordCount({ lang: this.$lang.code })
       // eslint-disable-next-line vue/no-parsing-error
       return count < 100 ? count : '多'
     }

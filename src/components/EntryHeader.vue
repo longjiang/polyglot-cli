@@ -6,7 +6,7 @@
         <div class="mb-2">
           <div class="entry-pinyin">
             <Star :word="entry"></Star>
-            <div v-if="entry.pronunciation">/{{ entry.pronunciation }}/</div>
+            <span v-if="entry.pronunciation" class='ml-2 mr-1'>/{{ entry.pronunciation }}/</span>
             <Speak class="ml-1" :text="entry.bare" :mp3="entry.audio" />
           </div>
         </div>

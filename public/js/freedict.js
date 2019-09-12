@@ -209,7 +209,7 @@ const FreeDict = {
     return this.words[id]
   },
   lookup(text) {
-    let word = this.words.find(word => word && word.bare === text)
+    let word = this.words.find(word => word && word.bare.toLowerCase() === text.toLowerCase())
     return word
   },
   formTable() {

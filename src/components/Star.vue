@@ -8,12 +8,7 @@
     >
       <font-awesome-icon icon="star" />
     </button>
-    <button
-      class="star add-word"
-      v-if="!saved()"
-      v-on:click="saveWordClick"
-      title="Add word"
-    >
+    <button class="star add-word" v-if="!saved()" v-on:click="saveWordClick" title="Add word">
       <font-awesome-icon :icon="['far', 'star']" />
     </button>
   </div>
@@ -48,20 +43,29 @@ export default {
       return wordForms
     },
     saved() {
-      let saved = this.$store.getters.hasSavedWord(
-        this.word ? this.word.bare.toLowerCase() : this.text.toLowerCase()
-      )
+      let saved = this.$store.getters.hasSavedWord({
+        text: this.word
+          ? this.word.bare.toLowerCase()
+          : this.text.toLowerCase(),
+        lang: this.$lang.code
+      })
       return saved
     },
     async saveWordClick() {
       let word = this.word ? await this.allForms() : [this.text.toLowerCase()]
-      this.$store.dispatch('addSavedWord', word)
+      console.log(this.$lang.code, 'this.$lang.code')
+      this.$store.dispatch('addSavedWord', {
+        wordForms: word,
+        lang: this.$lang.code
+      })
     },
     removeWordClick() {
-      this.$store.dispatch(
-        'removeSavedWord',
-        this.word ? this.word.bare.toLowerCase() : this.text.toLowerCase()
-      )
+      this.$store.dispatch('removeSavedWord', {
+        wordForm: this.word
+          ? this.word.bare.toLowerCase()
+          : this.text.toLowerCase(),
+        lang: this.$lang.code
+      })
     }
   }
 }
