@@ -30,5 +30,6 @@ export default {
           'https://yt3.ggpht.com/a/AGF-l78fhYheqCqnIhgXkmZW5GoBjgZkQl_V7vt52w=s48-c-k-c0xffffffff-no-rj-mo'
       }
     ]
-  }
+  },
+  features: [ 'dictionary' ]
 }

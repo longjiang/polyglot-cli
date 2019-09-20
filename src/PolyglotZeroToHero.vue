@@ -88,10 +88,14 @@ export default {
         Vue.prototype.$lang = this.languages.find(
           lang => lang.code === this.$route.params.lang
         )
-        if (!Vue.prototype.$dictionary) {
-          Vue.prototype.$dictionary = FreeDict.load(this.lang)
+        this.$lang.options = (await import(
+          `@/lib/langs/${this.$lang.code}.js`
+        )).default
+        if (this.$lang.options.features.includes('dictionary')) {
+          if (!Vue.prototype.$dictionary) {
+            Vue.prototype.$dictionary = FreeDict.load(this.lang)
+          }
         }
-        this.$lang.options = (await import(`@/lib/langs/${this.$lang.code}.js`)).default
         this.langLoaded = true
       }
     }

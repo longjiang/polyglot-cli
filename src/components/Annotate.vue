@@ -1,11 +1,7 @@
 <template>
   <component :is="tag" v-observe-visibility="visibilityChanged" :style="`direction: ${direction}`">
     <slot v-if="!this.annotated"></slot>
-    <v-runtime-template
-      v-else
-      v-for="template of annotatedSlots"
-      :template="template"
-    />
+    <v-runtime-template v-else v-for="template of annotatedSlots" :template="template" />
   </component>
 </template>
 
@@ -32,7 +28,7 @@ export default {
   },
   methods: {
     visibilityChanged(isVisible) {
-      if (isVisible && !this.annotated) {
+      if (isVisible && !this.annotated && this.$dictionary) {
         this.annotated = true
         this.annotate()
       }

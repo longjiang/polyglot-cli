@@ -3,6 +3,17 @@
     <router-link
       :class="{
         tab: true,
+        'router-link-active': $route.name && $route.name.startsWith('youtube')
+      }"
+      :to="{ name: 'youtube-browse' }"
+      :title="`Learn ${lang ? lang.name : ''} with audio-visual material.`"
+    >
+      <font-awesome-icon icon="video" />Audio-Visual
+    </router-link>
+    <router-link
+      v-if="$lang.options.features && $lang.options.features.includes('dictionary')"
+      :class="{
+        tab: true,
         'router-link-active':
           $route.name &&
           ($route.name === 'dictionary' ||
@@ -31,16 +42,6 @@
       :title="`Improve your ${lang ? lang.name : ''} through reading`"
     >
       <font-awesome-icon icon="book-open" />Reading
-    </router-link>
-    <router-link
-      :class="{
-        tab: true,
-        'router-link-active': $route.name && $route.name.startsWith('youtube')
-      }"
-      :to="{ name: 'youtube-browse' }"
-      :title="`Learn ${lang ? lang.name : ''} with audio-visual material.`"
-    >
-      <font-awesome-icon icon="video" />Audio-Visual
     </router-link>
     <router-link class="tab" :to="{ name: 'settings' }" title="Settings">
       <font-awesome-icon icon="cog" />Settings

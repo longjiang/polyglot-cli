@@ -11,12 +11,12 @@ export default new Router({
     {
       path: '/',
       name: 'home-redirect',
-      redirect: `/de/dictionary` // defaulting to /de if no language is set
+      redirect: `/de/youtube/browse` // defaulting to /de if no language is set
     },
     {
       path: '/:lang',
       name: 'home',
-      redirect: `/:lang/dictionary`
+      redirect: `/:lang/youtube/browse`
     },
     {
       path: '/:lang/dictionary/:method?/:args?',
