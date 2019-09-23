@@ -78,7 +78,7 @@ export default {
   getGoogleImages(text) {
     return new Promise(async resolve => {
       let $html = await Helper.scrape2(
-        `https://www.google.com/search?q=${text}&tbm=isch&sout=1#spf=1567955134767`
+        `https://www.google.com/search?q=${text}&safe=active&sout=1&tbas=0&tbm=isch`
       )
       let images = []
       for (let td of $html.find('.images_table td')) {
